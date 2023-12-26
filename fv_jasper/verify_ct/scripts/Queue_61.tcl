@@ -1,10 +1,29 @@
 analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
 
+check_spv -init
+
 elaborate -top Queue_61 -bbox_m StarshipROM
 
 clock clock
 reset reset -non_resettable_regs 0
 
 
-check_spv -create -from {io_enq_bits_meta_0 io_enq_bits_pc io_enq_bits_preds_0_predicted_pc_bits io_enq_bits_preds_0_taken io_enq_bits_preds_1_predicted_pc_bits io_enq_bits_preds_1_taken io_enq_bits_preds_2_predicted_pc_bits io_enq_bits_preds_2_taken io_enq_bits_preds_3_predicted_pc_bits io_enq_bits_preds_3_taken} -to {io_deq_bits_preds_0_predicted_pc_valid io_deq_bits_preds_1_predicted_pc_valid io_deq_bits_preds_2_predicted_pc_valid io_deq_bits_preds_3_predicted_pc_valid io_deq_valid io_enq_ready}
-prove -all
+check_spv -create \
+	-from { io_enq_bits_meta_0 \
+		io_enq_bits_pc \
+		io_enq_bits_preds_0_predicted_pc_bits \
+		io_enq_bits_preds_0_taken \
+		io_enq_bits_preds_1_predicted_pc_bits \
+		io_enq_bits_preds_1_taken \
+		io_enq_bits_preds_2_predicted_pc_bits \
+		io_enq_bits_preds_2_taken \
+		io_enq_bits_preds_3_predicted_pc_bits \
+		io_enq_bits_preds_3_taken} \
+	-to { io_deq_bits_preds_0_predicted_pc_valid \
+		io_deq_bits_preds_1_predicted_pc_valid \
+		io_deq_bits_preds_2_predicted_pc_valid \
+		io_deq_bits_preds_3_predicted_pc_valid \
+		io_deq_valid \
+		io_enq_ready}
+
+check_spv -prove

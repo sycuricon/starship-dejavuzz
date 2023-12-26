@@ -1,3 +1,5 @@
+from functools import reduce
+
 def gen_scripts():
     file = open('../base_BOOM.tcl', 'r')
     base_content = file.read()
@@ -35,8 +37,12 @@ def gen_scripts():
         if len(source) == 0 or len(sink) == 0:
             continue
         
-        content += '\n' + 'check_spv -create -from {' + ' '.join(source) + '} -to {' + ' '.join(sink) + '}\n'
-        content += 'prove -all'
+        content += '\n' + 'check_spv -create \\\n'
+        content += '\t' + '-from { ' + reduce(lambda l, r: l + ' \\\n' + '\t\t' + r, source) + '} \\\n'
+        content += '\t' + '-to { ' + reduce(lambda l, r: l + ' \\\n' + '\t\t' + r, sink) + '}\n'
+
+        content += '\n' + 'check_spv -prove'
+        content += '\n'
 
         file = open('scripts/' + modules[i] + '.tcl', 'w')
         file.write(content)

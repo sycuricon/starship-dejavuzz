@@ -89,3 +89,4 @@ Queue_71
 TLUART
 ClockSinkDomain_2
 StarshipSimTop
+FAMicroBTBBranchPredictorBank

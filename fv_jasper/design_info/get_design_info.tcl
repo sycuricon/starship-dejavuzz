@@ -1,9 +1,13 @@
 analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
 
+check_spv -init
+
 elaborate -top StarshipSimTop -bbox_m StarshipROM
 
 clock clock
-reset reset
+reset reset -non_resettable_regs 0
+
+
 get_design_info -module Queue -list input
 get_design_info -module Queue -list output
 get_design_info -module Queue_1 -list input
@@ -186,3 +190,5 @@ get_design_info -module ClockSinkDomain_2 -list input
 get_design_info -module ClockSinkDomain_2 -list output
 get_design_info -module StarshipSimTop -list input
 get_design_info -module StarshipSimTop -list output
+get_design_info -module FAMicroBTBBranchPredictorBank -list input
+get_design_info -module FAMicroBTBBranchPredictorBank -list output

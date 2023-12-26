@@ -1,10 +1,46 @@
 analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
 
+check_spv -init
+
 elaborate -top Queue_63 -bbox_m StarshipROM
 
 clock clock
 reset reset -non_resettable_regs 0
 
 
-check_spv -create -from {io_enq_bits_bpd_meta_0 io_enq_bits_br_mask io_enq_bits_cfi_idx_bits io_enq_bits_cfi_is_call io_enq_bits_cfi_is_ret io_enq_bits_cfi_type io_enq_bits_edge_inst_0 io_enq_bits_exp_insts_0 io_enq_bits_exp_insts_1 io_enq_bits_exp_insts_2 io_enq_bits_exp_insts_3 io_enq_bits_fsrc io_enq_bits_ghist_current_saw_branch_not_taken io_enq_bits_ghist_new_saw_branch_not_taken io_enq_bits_ghist_new_saw_branch_taken io_enq_bits_ghist_old_history io_enq_bits_ghist_ras_idx io_enq_bits_insts_0 io_enq_bits_insts_1 io_enq_bits_insts_2 io_enq_bits_insts_3 io_enq_bits_mask io_enq_bits_pc io_enq_bits_ras_top io_enq_bits_sfbs_0 io_enq_bits_sfbs_1 io_enq_bits_sfbs_2 io_enq_bits_sfbs_3 io_enq_bits_xcpt_ae_if io_enq_bits_xcpt_pf_if} -to {io_deq_bits_cfi_idx_valid io_deq_valid io_enq_ready}
-prove -all
+check_spv -create \
+	-from { io_enq_bits_bpd_meta_0 \
+		io_enq_bits_br_mask \
+		io_enq_bits_cfi_idx_bits \
+		io_enq_bits_cfi_is_call \
+		io_enq_bits_cfi_is_ret \
+		io_enq_bits_cfi_type \
+		io_enq_bits_edge_inst_0 \
+		io_enq_bits_exp_insts_0 \
+		io_enq_bits_exp_insts_1 \
+		io_enq_bits_exp_insts_2 \
+		io_enq_bits_exp_insts_3 \
+		io_enq_bits_fsrc \
+		io_enq_bits_ghist_current_saw_branch_not_taken \
+		io_enq_bits_ghist_new_saw_branch_not_taken \
+		io_enq_bits_ghist_new_saw_branch_taken \
+		io_enq_bits_ghist_old_history \
+		io_enq_bits_ghist_ras_idx \
+		io_enq_bits_insts_0 \
+		io_enq_bits_insts_1 \
+		io_enq_bits_insts_2 \
+		io_enq_bits_insts_3 \
+		io_enq_bits_mask \
+		io_enq_bits_pc \
+		io_enq_bits_ras_top \
+		io_enq_bits_sfbs_0 \
+		io_enq_bits_sfbs_1 \
+		io_enq_bits_sfbs_2 \
+		io_enq_bits_sfbs_3 \
+		io_enq_bits_xcpt_ae_if \
+		io_enq_bits_xcpt_pf_if} \
+	-to { io_deq_bits_cfi_idx_valid \
+		io_deq_valid \
+		io_enq_ready}
+
+check_spv -prove

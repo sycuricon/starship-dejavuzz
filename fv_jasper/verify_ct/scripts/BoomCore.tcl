@@ -1,10 +1,97 @@
 analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
 
+check_spv -init
+
 elaborate -top BoomCore -bbox_m StarshipROM
 
 clock clock
 reset reset -non_resettable_regs 0
 
 
-check_spv -create -from {io_hartid io_ifu_fetchpacket_bits_uops_0_bits_bp_debug_if io_ifu_fetchpacket_bits_uops_0_bits_bp_xcpt_if io_ifu_fetchpacket_bits_uops_0_bits_debug_fsrc io_ifu_fetchpacket_bits_uops_0_bits_debug_inst io_ifu_fetchpacket_bits_uops_0_bits_debug_pc io_ifu_fetchpacket_bits_uops_0_bits_edge_inst io_ifu_fetchpacket_bits_uops_0_bits_ftq_idx io_ifu_fetchpacket_bits_uops_0_bits_inst io_ifu_fetchpacket_bits_uops_0_bits_is_rvc io_ifu_fetchpacket_bits_uops_0_bits_is_sfb io_ifu_fetchpacket_bits_uops_0_bits_pc_lob io_ifu_fetchpacket_bits_uops_0_bits_taken io_ifu_fetchpacket_bits_uops_0_bits_xcpt_ae_if io_ifu_fetchpacket_bits_uops_0_bits_xcpt_pf_if io_ifu_get_pc_0_com_pc io_ifu_get_pc_0_entry_cfi_idx_bits io_ifu_get_pc_0_entry_ras_idx io_ifu_get_pc_0_entry_start_bank io_ifu_get_pc_0_next_pc io_ifu_get_pc_0_next_val io_ifu_get_pc_0_pc io_ifu_get_pc_1_entry_br_mask io_ifu_get_pc_1_entry_cfi_idx_bits io_ifu_get_pc_1_entry_cfi_is_call io_ifu_get_pc_1_entry_cfi_is_ret io_ifu_get_pc_1_entry_start_bank io_ifu_get_pc_1_ghist_current_saw_branch_not_taken io_ifu_get_pc_1_ghist_new_saw_branch_not_taken io_ifu_get_pc_1_ghist_new_saw_branch_taken io_ifu_get_pc_1_ghist_old_history io_ifu_get_pc_1_ghist_ras_idx io_ifu_get_pc_1_pc io_ifu_perf_acquire io_ifu_perf_tlbMiss io_interrupts_debug io_interrupts_meip io_interrupts_msip io_interrupts_mtip io_interrupts_seip io_lsu_clr_bsy_0_bits io_lsu_clr_bsy_1_bits io_lsu_dis_ldq_idx_0 io_lsu_dis_stq_idx_0 io_lsu_exe_0_fresp_bits_data io_lsu_exe_0_fresp_bits_uop_br_mask io_lsu_exe_0_fresp_bits_uop_dst_rtype io_lsu_exe_0_fresp_bits_uop_fp_val io_lsu_exe_0_fresp_bits_uop_is_amo io_lsu_exe_0_fresp_bits_uop_mem_size io_lsu_exe_0_fresp_bits_uop_pdst io_lsu_exe_0_fresp_bits_uop_rob_idx io_lsu_exe_0_fresp_bits_uop_stq_idx io_lsu_exe_0_fresp_bits_uop_uopc io_lsu_exe_0_fresp_bits_uop_uses_stq io_lsu_exe_0_iresp_bits_data io_lsu_exe_0_iresp_bits_uop_dst_rtype io_lsu_exe_0_iresp_bits_uop_is_amo io_lsu_exe_0_iresp_bits_uop_pdst io_lsu_exe_0_iresp_bits_uop_rob_idx io_lsu_exe_0_iresp_bits_uop_uses_stq io_lsu_fencei_rdy io_lsu_ld_miss io_lsu_ldq_full_0 io_lsu_lxcpt_bits_badvaddr io_lsu_lxcpt_bits_cause io_lsu_lxcpt_bits_uop_br_mask io_lsu_lxcpt_bits_uop_rob_idx io_lsu_perf_acquire io_lsu_perf_release io_lsu_perf_tlbMiss io_lsu_spec_ld_wakeup_0_bits io_lsu_stq_full_0 io_ptw_perf_l2miss} -to {io_ifu_commit_valid io_ifu_fetchpacket_ready io_ifu_sfence_valid io_lsu_commit_valids_0 io_lsu_dis_uops_0_valid io_lsu_exe_0_req_bits_mxcpt_valid io_lsu_exe_0_req_bits_sfence_valid io_lsu_exe_0_req_valid io_lsu_fp_stdata_valid io_ptw_sfence_valid}
-prove -all
+check_spv -create \
+	-from { io_hartid \
+		io_ifu_fetchpacket_bits_uops_0_bits_bp_debug_if \
+		io_ifu_fetchpacket_bits_uops_0_bits_bp_xcpt_if \
+		io_ifu_fetchpacket_bits_uops_0_bits_debug_fsrc \
+		io_ifu_fetchpacket_bits_uops_0_bits_debug_inst \
+		io_ifu_fetchpacket_bits_uops_0_bits_debug_pc \
+		io_ifu_fetchpacket_bits_uops_0_bits_edge_inst \
+		io_ifu_fetchpacket_bits_uops_0_bits_ftq_idx \
+		io_ifu_fetchpacket_bits_uops_0_bits_inst \
+		io_ifu_fetchpacket_bits_uops_0_bits_is_rvc \
+		io_ifu_fetchpacket_bits_uops_0_bits_is_sfb \
+		io_ifu_fetchpacket_bits_uops_0_bits_pc_lob \
+		io_ifu_fetchpacket_bits_uops_0_bits_taken \
+		io_ifu_fetchpacket_bits_uops_0_bits_xcpt_ae_if \
+		io_ifu_fetchpacket_bits_uops_0_bits_xcpt_pf_if \
+		io_ifu_get_pc_0_com_pc \
+		io_ifu_get_pc_0_entry_cfi_idx_bits \
+		io_ifu_get_pc_0_entry_ras_idx \
+		io_ifu_get_pc_0_entry_start_bank \
+		io_ifu_get_pc_0_next_pc \
+		io_ifu_get_pc_0_next_val \
+		io_ifu_get_pc_0_pc \
+		io_ifu_get_pc_1_entry_br_mask \
+		io_ifu_get_pc_1_entry_cfi_idx_bits \
+		io_ifu_get_pc_1_entry_cfi_is_call \
+		io_ifu_get_pc_1_entry_cfi_is_ret \
+		io_ifu_get_pc_1_entry_start_bank \
+		io_ifu_get_pc_1_ghist_current_saw_branch_not_taken \
+		io_ifu_get_pc_1_ghist_new_saw_branch_not_taken \
+		io_ifu_get_pc_1_ghist_new_saw_branch_taken \
+		io_ifu_get_pc_1_ghist_old_history \
+		io_ifu_get_pc_1_ghist_ras_idx \
+		io_ifu_get_pc_1_pc \
+		io_ifu_perf_acquire \
+		io_ifu_perf_tlbMiss \
+		io_interrupts_debug \
+		io_interrupts_meip \
+		io_interrupts_msip \
+		io_interrupts_mtip \
+		io_interrupts_seip \
+		io_lsu_clr_bsy_0_bits \
+		io_lsu_clr_bsy_1_bits \
+		io_lsu_dis_ldq_idx_0 \
+		io_lsu_dis_stq_idx_0 \
+		io_lsu_exe_0_fresp_bits_data \
+		io_lsu_exe_0_fresp_bits_uop_br_mask \
+		io_lsu_exe_0_fresp_bits_uop_dst_rtype \
+		io_lsu_exe_0_fresp_bits_uop_fp_val \
+		io_lsu_exe_0_fresp_bits_uop_is_amo \
+		io_lsu_exe_0_fresp_bits_uop_mem_size \
+		io_lsu_exe_0_fresp_bits_uop_pdst \
+		io_lsu_exe_0_fresp_bits_uop_rob_idx \
+		io_lsu_exe_0_fresp_bits_uop_stq_idx \
+		io_lsu_exe_0_fresp_bits_uop_uopc \
+		io_lsu_exe_0_fresp_bits_uop_uses_stq \
+		io_lsu_exe_0_iresp_bits_data \
+		io_lsu_exe_0_iresp_bits_uop_dst_rtype \
+		io_lsu_exe_0_iresp_bits_uop_is_amo \
+		io_lsu_exe_0_iresp_bits_uop_pdst \
+		io_lsu_exe_0_iresp_bits_uop_rob_idx \
+		io_lsu_exe_0_iresp_bits_uop_uses_stq \
+		io_lsu_fencei_rdy \
+		io_lsu_ld_miss \
+		io_lsu_ldq_full_0 \
+		io_lsu_lxcpt_bits_badvaddr \
+		io_lsu_lxcpt_bits_cause \
+		io_lsu_lxcpt_bits_uop_br_mask \
+		io_lsu_lxcpt_bits_uop_rob_idx \
+		io_lsu_perf_acquire \
+		io_lsu_perf_release \
+		io_lsu_perf_tlbMiss \
+		io_lsu_spec_ld_wakeup_0_bits \
+		io_lsu_stq_full_0 \
+		io_ptw_perf_l2miss} \
+	-to { io_ifu_commit_valid \
+		io_ifu_fetchpacket_ready \
+		io_ifu_sfence_valid \
+		io_lsu_commit_valids_0 \
+		io_lsu_dis_uops_0_valid \
+		io_lsu_exe_0_req_bits_mxcpt_valid \
+		io_lsu_exe_0_req_bits_sfence_valid \
+		io_lsu_exe_0_req_valid \
+		io_lsu_fp_stdata_valid \
+		io_ptw_sfence_valid}
+
+check_spv -prove

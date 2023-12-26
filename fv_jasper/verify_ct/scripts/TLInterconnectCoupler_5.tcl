@@ -1,0 +1,10 @@
+analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
+
+elaborate -top TLInterconnectCoupler_5 -bbox_m StarshipROM
+
+clock clock
+reset reset -non_resettable_regs 0
+
+
+check_spv -create -from {auto_axi4index_in_ar_bits_addr auto_axi4index_in_ar_bits_burst auto_axi4index_in_ar_bits_id auto_axi4index_in_ar_bits_len auto_axi4index_in_ar_bits_size auto_axi4index_in_aw_bits_addr auto_axi4index_in_aw_bits_burst auto_axi4index_in_aw_bits_id auto_axi4index_in_aw_bits_len auto_axi4index_in_aw_bits_size auto_axi4index_in_w_bits_data auto_axi4index_in_w_bits_last auto_axi4index_in_w_bits_strb auto_tl_out_d_bits_corrupt auto_tl_out_d_bits_data auto_tl_out_d_bits_denied auto_tl_out_d_bits_opcode auto_tl_out_d_bits_size auto_tl_out_d_bits_source} -to {auto_axi4index_in_ar_ready auto_axi4index_in_aw_ready auto_axi4index_in_b_valid auto_axi4index_in_r_valid auto_axi4index_in_w_ready auto_tl_out_a_valid auto_tl_out_d_ready}
+prove -all

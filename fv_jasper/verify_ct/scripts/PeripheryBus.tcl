@@ -1,0 +1,10 @@
+analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
+
+elaborate -top PeripheryBus -bbox_m StarshipROM
+
+clock -infer
+reset -none -non_resettable_regs 0
+
+
+check_spv -create -from {auto_bus_xing_in_a_bits_address auto_bus_xing_in_a_bits_data auto_bus_xing_in_a_bits_mask auto_bus_xing_in_a_bits_opcode auto_bus_xing_in_a_bits_param auto_bus_xing_in_a_bits_size auto_bus_xing_in_a_bits_source auto_coupler_to_device_named_uart_0_control_xing_out_d_bits_data auto_coupler_to_device_named_uart_0_control_xing_out_d_bits_opcode auto_coupler_to_device_named_uart_0_control_xing_out_d_bits_size auto_coupler_to_device_named_uart_0_control_xing_out_d_bits_source} -to {auto_bus_xing_in_a_ready auto_bus_xing_in_d_valid auto_coupler_to_device_named_uart_0_control_xing_out_a_valid auto_coupler_to_device_named_uart_0_control_xing_out_d_ready}
+prove -all

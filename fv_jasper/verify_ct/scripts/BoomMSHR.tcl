@@ -1,0 +1,10 @@
+analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
+
+elaborate -top BoomMSHR -bbox_m StarshipROM
+
+clock clock
+reset reset -non_resettable_regs 0
+
+
+check_spv -create -from {io_brupdate_b1_mispredict_mask io_brupdate_b1_resolve_mask io_clear_prefetch io_exception io_id io_lb_resp io_mem_grant_bits_data io_mem_grant_bits_opcode io_mem_grant_bits_param io_mem_grant_bits_sink io_mem_grant_bits_size io_meta_resp_bits_coh_state io_prober_state_bits io_req_addr io_req_is_hella io_req_is_probe io_req_old_meta_coh_state io_req_old_meta_tag io_req_pri_val io_req_sdq_id io_req_sec_val io_req_tag_match io_req_uop_br_mask io_req_uop_is_amo io_req_uop_ldq_idx io_req_uop_mem_cmd io_req_uop_mem_signed io_req_uop_mem_size io_req_uop_stq_idx io_req_uop_uses_ldq io_req_uop_uses_stq io_req_way_en io_wb_resp} -to {io_idx_valid io_lb_read_valid io_lb_write_valid io_mem_acquire_valid io_mem_finish_valid io_mem_grant_ready io_meta_read_valid io_meta_write_valid io_refill_valid io_replay_valid io_resp_valid io_tag_valid io_way_valid io_wb_req_valid}
+prove -all

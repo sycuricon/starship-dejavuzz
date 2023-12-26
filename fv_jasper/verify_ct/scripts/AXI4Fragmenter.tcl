@@ -1,0 +1,10 @@
+analyze -sva ./fv_jasper/verilog/BOOM.v ./fv_jasper/verilog/BOOM_mem.v ./fv_jasper/verilog/plusarg_reader.v ./asic/sim/parafuzz.sv
+
+elaborate -top AXI4Fragmenter -bbox_m StarshipROM
+
+clock clock
+reset reset -non_resettable_regs 0
+
+
+check_spv -create -from {auto_in_ar_bits_addr auto_in_ar_bits_burst auto_in_ar_bits_echo_extra_id auto_in_ar_bits_id auto_in_ar_bits_len auto_in_ar_bits_size auto_in_aw_bits_addr auto_in_aw_bits_burst auto_in_aw_bits_echo_extra_id auto_in_aw_bits_id auto_in_aw_bits_len auto_in_aw_bits_size auto_in_w_bits_data auto_in_w_bits_last auto_in_w_bits_strb auto_out_b_bits_echo_extra_id auto_out_b_bits_echo_real_last auto_out_b_bits_id auto_out_b_bits_resp auto_out_r_bits_data auto_out_r_bits_echo_extra_id auto_out_r_bits_echo_real_last auto_out_r_bits_id auto_out_r_bits_last auto_out_r_bits_resp} -to {auto_in_ar_ready auto_in_aw_ready auto_in_b_valid auto_in_r_valid auto_in_w_ready auto_out_ar_valid auto_out_aw_valid auto_out_b_ready auto_out_r_ready auto_out_w_valid}
+prove -all

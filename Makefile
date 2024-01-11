@@ -9,6 +9,7 @@ BUILD		:= $(TOP)/build
 CONFIG		:= $(TOP)/conf
 SBT_BUILD 	:= $(TOP)/target $(TOP)/project/target $(TOP)/project/project
 ASIC		:= $(TOP)/asic
+MEM_INIT_DIR:= $(TOP)/state_init
 
 ifndef RISCV
   $(error $$RISCV is undefined, please set $$RISCV to your riscv-toolchain)
@@ -215,8 +216,6 @@ $(SPIKE_LIB)&: $(SPIKE_SRC) $(SPIKE_BUILD)/Makefile
 #
 #######################################
 
-MEM_INIT_DIR	:= $(CURDIR)/state_init
-
 VCS_OUTPUT	:= $(BUILD)/vcs
 VERDI_OUTPUT:= $(BUILD)/verdi
 VCS_BUILD	:= $(VCS_OUTPUT)/build
@@ -256,7 +255,7 @@ VCS_OPTION	:= -quiet -notice -line +rad -full64 +nospecify +notimingcheck -derac
 			   +vcs+initreg+random +v2k -debug_acc+all -timescale=1ns/10ps +incdir+$(VCS_INCLUDE) 	\
 			   $(VCS_PARAL_COM) -CFLAGS "$(VCS_CFLAGS)" 											\
 			   $(CHISEL_DEFINE) $(VCS_DEFINE)
-VCS_SIM_OPTION	:= +vcs+initreg+0 $(VCS_PARAL_RUN) +testcase=$(TESTCASE_ELF) +maskromhex=$(MEM_INIT_DIR)/dummy.hex
+VCS_SIM_OPTION	:= +vcs+initreg+0 $(VCS_PARAL_RUN) +testcase=$(TESTCASE_ELF) +maskromhex=$(STARSHIP_ROM)
 
 vcs-wave: 		VCS_SIM_OPTION += +dump +uart_tx=0
 vcs-debug: 		VCS_SIM_OPTION += +verbose +dump +uart_tx=0
@@ -337,7 +336,7 @@ VLT_OPTION	:= -Wno-fatal -Wno-WIDTH -Wno-STMTDLY -Werror-IMPLICIT							\
 			   +incdir+$(ROCKET_BUILD) +incdir+$(SIM_DIR) $(CHISEL_DEFINE) $(VLT_DEFINE)	\
 			   --cc --exe --Mdir $(VLT_BUILD) --top-module $(TB_TOP) --main -o $(TB_TOP) 	\
 			   -CFLAGS "-DVL_DEBUG -DTOP=${TB_TOP} ${VLT_CFLAGS}"
-VLT_SIM_OPTION	:= +testcase=$(TESTCASE_ELF) +maskromhex=$(MEM_INIT_DIR)/dummy.hex
+VLT_SIM_OPTION	:= +testcase=$(TESTCASE_ELF) +maskromhex=$(STARSHIP_ROM)
 
 vlt-wave: 		VLT_SIM_OPTION	+= +dump
 vlt-fuzz: 		VLT_SIM_OPTION	+= +fuzzing
@@ -345,7 +344,7 @@ vlt-fuzz-debug: VLT_SIM_OPTION	+= +fuzzing +verbose +dump
 vlt-jtag: 		VLT_SIM_OPTION	+= +jtag_rbb_enable=1
 vlt-jtag-debug: VLT_SIM_OPTION	+= +jtag_rbb_enable=1 +dump
 
-vlt-init:		VLT_SIM_OPTION  += +testcase=$(MEM_INIT_DIR)/mem.0x80000000 +maskromhex=$(MEM_INIT_DIR)/dump_initial.hex +dump +mem_init=1
+vlt-init:		VLT_SIM_OPTION  += +mem_init=1
 
 $(VLT_TARGET): $(VERILOG_SRC) $(ROCKET_ROM_HEX) $(ROCKET_INCLUDE) $(VLT_SRC_V) $(VLT_SRC_C) $(SPIKE_LIB) 
 	$(MAKE) verilog-patch

@@ -136,7 +136,7 @@ module Testbench;
     end
     $system("echo -e \"\033[31m[>] vcs init `date +%s.%3N` \033[0m\"");
 
-    taint
+    // taint
     taint_fd = $fopen({`TOP_DIR, "/wave/taint.csv"}, "w");
     $fwrite(taint_fd,"time,taint_sum\n", `SOC_TOP.taint_sum);
   end

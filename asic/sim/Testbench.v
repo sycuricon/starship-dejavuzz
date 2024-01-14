@@ -75,6 +75,7 @@ module Testbench;
   reg [2047:0] fsdbfile = 0;
   reg [2047:0] vcdplusfile = 0;
   reg [2047:0] vcdfile = 0;
+  reg mem_init=0;
 
   int taint_fd;
   int event_fd;
@@ -90,6 +91,7 @@ module Testbench;
     verbose = $test$plusargs("verbose");
     fuzz = $test$plusargs("fuzzing");
     dump_wave = $test$plusargs("dump");
+    mem_init = $test$plusargs("mem_init");
 
     // fixed for diffuzzRTL, CJ should not timeout
     max_cycles = 2000000000;
@@ -273,7 +275,9 @@ module Testbench;
     if (coverage_collector(`COVERAGE_PROBE)) begin
       reset = 1;
       $readmemh("./testcase.hex", `MEM_RPL.ram);
-      cosim_reinit("./testcase.elf", verbose);
+      if(~mem_init)begin
+        cosim_reinit("./testcase.elf", verbose);
+      end
       $system("echo -e \"\033[31m[>] round start `date +%s.%3N` \033[0m\"");
     end
     `endif

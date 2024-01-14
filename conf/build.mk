@@ -18,6 +18,7 @@ STARSHIP_BOARD	?= vc707
 ##########################
 
 STARSHIP_TESTCASE	?= $(BUILD)/starship-dummy-testcase
+STARSHIP_ROM		?= $(MEM_INIT_DIR)/dummy.hex
 
 $(BUILD)/starship-dummy-testcase:
 	mkdir -p $(BUILD)

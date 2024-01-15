@@ -2,7 +2,7 @@ module taintcell_1I1O(A, Y, A_taint, Y_taint);
 
     parameter A_SIGNED = 0;
     parameter A_WIDTH = 0;
-    parameter TYPE = "not";
+    parameter TYPE = "default";
     parameter Y_WIDTH = 0;
 
     input [A_WIDTH-1:0] A;
@@ -10,7 +10,26 @@ module taintcell_1I1O(A, Y, A_taint, Y_taint);
     input [Y_WIDTH-1:0] Y;
     output [Y_WIDTH-1:0] Y_taint;
 
-    assign Y_taint = A_taint;
+    wire [Y_WIDTH-1:0] A_san = $isunknown(A) ? {Y_WIDTH{1'b0}} : A_SIGNED ? $signed(A) : A;
+    wire [Y_WIDTH-1:0] Y_san = $isunknown(Y) ? {Y_WIDTH{1'b0}} : Y;
+    wire [Y_WIDTH-1:0] At_san = A_SIGNED ? $signed(A_taint) : A_taint;
+
+    generate
+        case (TYPE)
+            "logic_not", "reduce_or", "reduce_bool": begin: genreducenot
+                assign Y_taint = !(~At_san & A_san) & |At_san;
+            end
+            "reduce_and": begin: genreduceand
+                assign Y_taint = &(At_san | A_san) & |At_san;
+            end
+            "reduce_xor": begin: genreducexor
+                assign Y_taint = |At_san;
+            end
+            default: begin: gendefault
+                assign Y_taint = At_san;
+            end
+        endcase
+    endgenerate
 
 endmodule
 
@@ -20,7 +39,7 @@ module taintcell_2I1O(A, B, Y, A_taint, B_taint, Y_taint);
     parameter A_WIDTH = 0;
     parameter B_SIGNED = 0;
     parameter B_WIDTH = 0;
-    parameter TYPE = "add";
+    parameter TYPE = "default";
     parameter Y_WIDTH = 0;
 
     input [A_WIDTH-1:0] A;
@@ -30,28 +49,40 @@ module taintcell_2I1O(A, B, Y, A_taint, B_taint, Y_taint);
     input [Y_WIDTH-1:0] Y;
     output [Y_WIDTH-1:0] Y_taint;
 
-    wire [A_WIDTH-1:0] A_san = $isunknown(A) ? {A_WIDTH{1'b0}} : A;
-    wire [B_WIDTH-1:0] B_san = $isunknown(B) ? {B_WIDTH{1'b0}} : B;
+    wire [Y_WIDTH-1:0] A_san = $isunknown(A) ? {Y_WIDTH{1'b0}} : A_SIGNED ? $signed(A) : A;
+    wire [Y_WIDTH-1:0] B_san = $isunknown(B) ? {Y_WIDTH{1'b0}} : B_SIGNED ? $signed(B) : B;
     wire [Y_WIDTH-1:0] Y_san = $isunknown(Y) ? {Y_WIDTH{1'b0}} : Y;
+    wire [Y_WIDTH-1:0] At_san = A_SIGNED ? $signed(A_taint) : A_taint;
+    wire [Y_WIDTH-1:0] Bt_san = B_SIGNED ? $signed(B_taint) : B_taint;
 
     generate
         case (TYPE)
             "and": begin: genand
-                // assign Y_taint = A_taint | B_taint; 
-                // assign Y_taint = (A_taint & B_san) | (B_taint & A_san);
-                assign Y_taint = (A_taint & B_san) | (B_taint & A_san) | (A_taint & B_taint);
+                // assign Y_taint = (At_san & B_san) | (Bt_san & A_san);
+                assign Y_taint = (At_san & B_san) | (Bt_san & A_san) | (At_san & Bt_san);
             end
             "or": begin: genor
-                // assign Y_taint = A_taint | B_taint;
-                // assign Y_taint = (A_taint & ~B_san) | (B_taint & ~A_san);
-                assign Y_taint = (A_taint & ~B_san) | (B_taint & ~A_san) | (A_taint & B_taint);
+                // assign Y_taint = (At_san & ~B_san) | (Bt_san & ~A_san);
+                assign Y_taint = (At_san & ~B_san) | (Bt_san & ~A_san) | (At_san & Bt_san);
             end
-            "eq", "ne": begin
-                // assign Y_taint = |{A_taint, B_taint};
-                assign Y_taint = ((A_san & ~(A_taint | B_taint)) == (B_san & ~(A_taint | B_taint))) & |{A_taint, B_taint};
+            "eq", "ne": begin: geneq
+                // assign Y_taint = |{At_san, Bt_san};
+                assign Y_taint = ((A_san & ~(At_san | Bt_san)) == (B_san & ~(At_san | Bt_san))) & |{At_san, Bt_san};
+            end
+            "shl": begin: genshl
+                assign Y_taint = Bt_san ? {Y_WIDTH{1'b1}} : At_san << B_san;
+            end
+            "sshl": begin: gensshl
+                assign Y_taint = Bt_san ? {Y_WIDTH{1'b1}} : At_san <<< B_san;
+            end
+            "shr": begin: genshr
+                assign Y_taint = Bt_san ? {Y_WIDTH{1'b1}} : At_san >> B_san;
+            end
+            "sshr": begin: gensshr
+                assign Y_taint = Bt_san ? {Y_WIDTH{1'b1}} : At_san >>> B_san;
             end
             default: begin: gendefault
-                assign Y_taint = A_taint | B_taint;
+                assign Y_taint = At_san | Bt_san;
             end
         endcase
     endgenerate
@@ -241,7 +272,7 @@ module taintcell_mem (RD_CLK, RD_EN, RD_ARST, RD_SRST, RD_ADDR, RD_DATA, WR_CLK,
             always @(*) begin
                 for (i = 0; i < RD_PORTS; i = i+1)
                     RD_DATA_taint[i*WIDTH +: WIDTH] = 
-                        (RD_ARST[i] ? 0 : memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | RD_ADDR_taint[i*ABITS +: ABITS]) |
+                        (RD_ARST[i] ? 0 : memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | {WIDTH{|RD_ADDR_taint[i*ABITS +: ABITS]}}) |
                         RD_ARST_taint[i] ? {WIDTH{1'b1}} : {WIDTH{1'b0}};
             end
         end
@@ -258,12 +289,24 @@ module taintcell_mem (RD_CLK, RD_EN, RD_ARST, RD_SRST, RD_ADDR, RD_DATA, WR_CLK,
                 for (i = 0; i < RD_PORTS; i = i+1)
                     if (RD_CE_OVER_SRST[i])
                         RD_DATA_taint[i*WIDTH +: WIDTH] <= 
-                            (RD_EN[i] ? (RD_SRST[i] ? 0 : memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | {WIDTH{|RD_ADDR_taint[i*ABITS +: ABITS]}}) : 0) |
-                            RD_EN_taint[i] ? {WIDTH{1'b1}} : (RD_EN[i] & RD_SRST_taint[i] ? {WIDTH{1'b1}} : {WIDTH{1'b0}});
+                            (RD_EN[i] ? 
+                                (RD_SRST[i] ? 
+                                    0 : 
+                                    memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | {WIDTH{|RD_ADDR_taint[i*ABITS +: ABITS]}}) : 
+                                0) |
+                            RD_EN[i] & RD_EN_taint[i] ? 
+                                {WIDTH{1'b1}} : 
+                                (RD_EN[i] & RD_SRST[i] & RD_SRST_taint[i] ? {WIDTH{1'b1}} : {WIDTH{1'b0}});
                     else
                         RD_DATA_taint[i*WIDTH +: WIDTH] <= 
-                            (RD_SRST[i] ? 0 : (RD_EN[i] ? memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | {WIDTH{|RD_ADDR_taint[i*ABITS +: ABITS]}} : 0)) |
-                            RD_SRST_taint[i] ? {WIDTH{1'b1}} : (!RD_SRST[i] & RD_EN_taint[i] ? {WIDTH{1'b1}} : {WIDTH{1'b0}});
+                            (RD_SRST[i] ? 
+                                0 : 
+                                (RD_EN[i] ? 
+                                    memory_taint[RD_ADDR[i*ABITS +: ABITS] - OFFSET] | {WIDTH{|RD_ADDR_taint[i*ABITS +: ABITS]}} : 
+                                    0)) |
+                            RD_SRST[i] & RD_SRST_taint[i] ? 
+                                {WIDTH{1'b1}} : 
+                                (!RD_SRST[i] & RD_EN[i] & RD_EN_taint[i] ? {WIDTH{1'b1}} : {WIDTH{1'b0}});
             end
         end
 
@@ -277,7 +320,10 @@ module taintcell_mem (RD_CLK, RD_EN, RD_ARST, RD_SRST, RD_ADDR, RD_DATA, WR_CLK,
                     for (i = 0; i < WR_PORTS; i = i+1)
                             for (j = 0; j < WIDTH; j = j+1)
                                 if (WR_EN[i*WIDTH+j])
-                                    memory_taint[WR_ADDR[i*ABITS +: ABITS] - OFFSET][j] = WR_DATA_taint[i*WIDTH+j] | |WR_ADDR_taint[i*ABITS +: ABITS] | |WR_EN_taint[i*WIDTH +: WIDTH];
+                                    memory_taint[WR_ADDR[i*ABITS +: ABITS] - OFFSET][j] = 
+                                        WR_DATA_taint[i*WIDTH+j] |
+                                        |WR_ADDR_taint[i*ABITS +: ABITS] | 
+                                        WR_EN_taint[i*WIDTH+j];
                 end
             end
         end
@@ -298,7 +344,10 @@ module taintcell_mem (RD_CLK, RD_EN, RD_ARST, RD_SRST, RD_ADDR, RD_DATA, WR_CLK,
                             for (j = 0; j < WIDTH; j = j+1)
                                 if (WR_EN[i*WIDTH+j])
                                     // use blocking assigment here, because verilator doesn't support non-blocking assignments in generate blocks
-                                    memory_taint[WR_ADDR[i*ABITS +: ABITS] - OFFSET][j] = WR_DATA_taint[i*WIDTH+j] | |WR_ADDR_taint[i*ABITS +: ABITS] | |WR_EN_taint[i*WIDTH +: WIDTH];
+                                    memory_taint[WR_ADDR[i*ABITS +: ABITS] - OFFSET][j] = 
+                                        WR_DATA_taint[i*WIDTH+j] | 
+                                        |WR_ADDR_taint[i*ABITS +: ABITS] | 
+                                        WR_EN_taint[i*WIDTH+j];
                 end
             end
         end

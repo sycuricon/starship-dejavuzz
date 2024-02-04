@@ -126,6 +126,7 @@ extern "C" int register_reference(const char* hierarchy) {
     return idxMap[hierarchy];
 }
 
+
 extern "C" void get_mux_sel(char* select);
 extern "C" char xref_diff_mux_sel(unsigned int idx) {
     Reference h = refMap.at(group_idx(idx));

@@ -81,6 +81,9 @@ module taintcell_2I1O(A, B, Y, A_taint, B_taint, Y_taint);
             "sshr": begin: gensshr
                 assign Y_taint = Bt_san ? {Y_WIDTH{1'b1}} : At_san >>> B_san;
             end
+            "mul": begin: genmul
+                assign Y_taint = {Y_WIDTH{|{At_san, Bt_san}}};
+            end
             default: begin: gendefault
                 assign Y_taint = At_san | Bt_san;
             end
@@ -103,12 +106,22 @@ module taintcell_mux (A, B, S, Y, A_taint, B_taint, S_taint, Y_taint);
     input S_taint;
     output [WIDTH-1:0] Y_taint;
 
-    // assign Y_taint = (S ? B_taint : A_taint) | (S_taint ? {WIDTH{1'b1}} : {WIDTH{1'b0}});
-
     wire [WIDTH-1:0] A_san = $isunknown(A) ? {WIDTH{1'b0}} : A;
     wire [WIDTH-1:0] B_san = $isunknown(B) ? {WIDTH{1'b0}} : B;
 
-    assign Y_taint = (S ? B_taint : A_taint) | (S_taint ? A_san ^ B_san : {WIDTH{1'b0}});
+    import "DPI-C" function byte xref_variant_mux(string hierarchy);
+    export "DPI-C" function get_selection;
+    function void get_selection();
+        output byte select;
+        select = S;
+    endfunction
+
+    reg S_diff;
+    always @(negedge `SOC_TOP.clock) begin
+        S_diff = xref_variant_mux($sformatf("%m"));
+    end
+
+    assign Y_taint = (S ? B_taint : A_taint) | (S_taint & S_diff ? A_san ^ B_san : {WIDTH{1'b0}});
 
 endmodule
 
@@ -140,6 +153,32 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
     wire [WIDTH-1:0] D_san = $isunknown(D) ? {WIDTH{1'b0}} : D;
     wire [WIDTH-1:0] Q_san = $isunknown(Q) ? {WIDTH{1'b0}} : Q;
 
+    import "DPI-C" function byte xref_variant_dffe(string hierarchy);
+    import "DPI-C" function byte xref_variant_sdff(string hierarchy);
+    import "DPI-C" function byte xref_variant_adff(string hierarchy);
+    export "DPI-C" function get_enable;
+    export "DPI-C" function get_srst;
+    export "DPI-C" function get_arst;
+    function void get_enable();
+        output byte enable;
+        enable = pos_en;
+    endfunction
+    function void get_srst();
+        output byte srst;
+        srst = pos_arst;
+    endfunction
+    function void get_arst();
+        output byte arst;
+        arst = pos_arst;
+    endfunction
+
+    reg en_diff, srst_diff, arst_diff;
+    always @(negedge `SOC_TOP.clock) begin
+        en_diff = xref_variant_dffe($sformatf("%m"));
+        srst_diff = xref_variant_sdff($sformatf("%m"));
+        arst_diff = xref_variant_adff($sformatf("%m"));
+            end
+
     generate
         initial #(`RESET_DELAY) Q_taint = 0;
         case (TYPE)
@@ -156,7 +195,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                     if (`SOC_TOP.reset)
                         Q_taint <= 0;
                     else
-                        Q_taint <= (pos_srst ? 0 : D_taint) | (pos_srst & SRST_taint ? SRST_VALUE ^ D_san : {WIDTH{1'b0}});
+                        Q_taint <= (pos_srst ? 0 : D_taint) |
+                                   (SRST_taint & srst_diff ? SRST_VALUE ^ D_san : {WIDTH{1'b0}});
                 end
             end
             "adff": begin: genadff
@@ -164,7 +204,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                     if (`SOC_TOP.reset)
                         Q_taint <= 0;
                     else
-                        Q_taint <= (pos_arst ? 0 : D_taint) | (pos_arst & ARST_taint ? ARST_VALUE ^ D_san : {WIDTH{1'b0}});
+                        Q_taint <= (pos_arst ? 0 : D_taint) | 
+                                   (ARST_taint & arst_diff ? ARST_VALUE ^ D_san : {WIDTH{1'b0}});
                 end
             end
             "dffe": begin: gendffe
@@ -172,7 +213,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                     if (`SOC_TOP.reset)
                         Q_taint <= 0;
                     else
-                        Q_taint <= (pos_en ? D_taint : Q_taint) | (pos_en & EN_taint ? D_san ^ Q_san : {WIDTH{1'b0}});
+                        Q_taint <= (pos_en ? D_taint : Q_taint) | 
+                                   (EN_taint & en_diff ? D_san ^ Q_san : {WIDTH{1'b0}});
                 end
             end
             "sdffe": begin: gensdffe
@@ -181,7 +223,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                         Q_taint <= 0;
                     else
                         Q_taint <= (pos_srst ? 0 : (pos_en ? D_taint : Q_taint)) | 
-                            (pos_srst & SRST_taint ? SRST_VALUE ^ Q_san : (pos_en & EN_taint ? D_san ^ Q_san : {WIDTH{1'b0}}));
+                            (SRST_taint & srst_diff ? SRST_VALUE ^ Q_san : 
+                                (EN_taint & en_diff ? D_san ^ Q_san : {WIDTH{1'b0}}));
                 end
             end
             "adffe": begin: genadffe
@@ -190,7 +233,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                         Q_taint <= 0;
                     else
                         Q_taint <= (pos_arst ? 0 : (pos_en ? D_taint : Q_taint)) | 
-                            (pos_arst & ARST_taint ? ARST_VALUE ^ Q_san : (pos_en & EN_taint ? D_san ^ Q_san : {WIDTH{1'b0}}));
+                            (ARST_taint & arst_diff ? ARST_VALUE ^ Q_san : 
+                                (EN_taint & en_diff ? D_san ^ Q_san : {WIDTH{1'b0}}));
                 end
             end
             "sdffce": begin: gensdffce
@@ -199,8 +243,8 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
                         Q_taint <= 0;
                     else
                         Q_taint <= (pos_en ? (pos_srst ? 0 : D_taint) : Q_taint) |
-                            (pos_en & EN_taint & ~pos_srst & SRST_taint ? D_san ^ Q_san :
-                                (pos_en & EN_taint & pos_srst & SRST_taint ? SRST_VALUE ^ Q_san : {WIDTH{1'b0}}));
+                            (EN_taint & en_diff ? (SRST_taint & srst_diff ? SRST_VALUE ^ Q_san : D_san ^ Q_san) : 
+                                {WIDTH{1'b0}});
                 end
             end
             default: begin: generror

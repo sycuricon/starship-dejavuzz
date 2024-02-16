@@ -1,67 +1,61 @@
-2023-12-26 00:33:42.961188 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.961292 (119586) main____ INFO    JasperGold version info
-2023-12-26 00:33:42.961311 (119586) main____ INFO      tool      : JasperGold 2021.03
-2023-12-26 00:33:42.961328 (119586) main____ INFO      version   : 2021.03 FCS 64 bits
-2023-12-26 00:33:42.961340 (119586) main____ INFO      build date: 2021.03.23 02:50:43 UTC
-2023-12-26 00:33:42.961350 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.961360 (119586) main____ INFO    Runtime info:
-2023-12-26 00:33:42.961372 (119586) main____ INFO      platform  : Linux 3.10.0-1127.10.1.el7.x86_64 x86_64
-2023-12-26 00:33:42.961385 (119586) main____ INFO      hostname  : sat4
-2023-12-26 00:33:42.961396 (119586) main____ INFO      pid       : 119586
-2023-12-26 00:33:42.961407 (119586) main____ INFO      arguments : '-style' 'windows' 'fv_jasper/verify_ct/scripts/TageTable_5.tcl'
-2023-12-26 00:33:42.961424 (119586) main____ INFO      locale    : UTF-8
-2023-12-26 00:33:42.961434 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.961444 (119586) main____ INFO    System resource limits info:
-2023-12-26 00:33:42.961456 (119586) main____ INFO      virtual memory: unlimited
-2023-12-26 00:33:42.961467 (119586) main____ INFO      cpu time      : unlimited
-2023-12-26 00:33:42.961488 (119586) main____ INFO      stack size    : 8388608 B
-2023-12-26 00:33:42.961502 (119586) main____ INFO      core file size: 0 B
-2023-12-26 00:33:42.961516 (119586) main____ INFO      open files    : 1024
-2023-12-26 00:33:42.961527 (119586) main____ INFO      file size     : unlimited
-2023-12-26 00:33:42.961538 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.961547 (119586) main____ INFO    Memory statistics:
-2023-12-26 00:33:42.961558 (119586) main____ INFO      total physical memory  : 263390968 kB
-2023-12-26 00:33:42.961568 (119586) main____ INFO      free physical memory   : 87883752 kB
-2023-12-26 00:33:42.961578 (119586) main____ INFO      committed address space: 51149204 kB
-2023-12-26 00:33:42.961588 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.963523 (119586) main____ INFO    Important environment variables:
-2023-12-26 00:33:42.963555 (119586) main____ INFO      DISPLAY           : ':2'
-2023-12-26 00:33:42.963570 (119586) main____ INFO      JASPER_INSTALL_DIR: '/usr/licensed/cadence/jasper_2021.03'
-2023-12-26 00:33:42.963583 (119586) main____ INFO      LANG              : 'en_US.UTF-8'
-2023-12-26 00:33:42.963596 (119586) main____ INFO      LC_MEASUREMENT    : 'zh_CN.UTF-8'
-2023-12-26 00:33:42.963609 (119586) main____ INFO      LC_MONETARY       : 'zh_CN.UTF-8'
-2023-12-26 00:33:42.963621 (119586) main____ INFO      LC_NUMERIC        : 'zh_CN.UTF-8'
-2023-12-26 00:33:42.963634 (119586) main____ INFO      LC_PAPER          : 'zh_CN.UTF-8'
-2023-12-26 00:33:42.963646 (119586) main____ INFO      LC_TIME           : 'zh_CN.UTF-8'
-2023-12-26 00:33:42.963659 (119586) main____ INFO      LM_LICENSE_FILE   : '5280@license.rc.princeton.edu'
-2023-12-26 00:33:42.963670 (119586) main____ INFO    ----------------------------------------
-2023-12-26 00:33:42.965144 (119586) lic_core INFO    Initializing license system ...
-2023-12-26 00:33:42.965777 (119586) lic_core INFO    ... license system initialized.
-2023-12-26 00:33:42.966965 (119586) lic__man INFO    Claim 'main' for <ui>.
-2023-12-26 00:33:42.967016 (119586) lic_core INFO    (1) checking out 'jasper_interactive' ...
-2023-12-26 00:33:43.010544 (119586) lic_core INFO    ... (1) checkout succeeded
-2023-12-26 00:33:43.010686 (119586) lic__man INFO    Claim 'fpv' for <ui>.
-2023-12-26 00:33:43.010723 (119586) lic_core INFO    (2) checking out 'jasper_fpv' ...
-2023-12-26 00:33:43.038677 (119586) lic_core INFO    ... (2) checkout failed (error: -5) ("FLEXnet ERROR(-5, 0, 0): No such feature exists.")
-2023-12-26 00:33:43.038737 (119586) lic_core INFO    (3) checking out 'jasper_fao' ...
-2023-12-26 00:33:43.082350 (119586) lic_core INFO    ... (3) checkout succeeded
-2023-12-26 00:33:43.083371 (119586) main____ INFO    Tool inactivity delay is 480000 ms.
-2023-12-26 00:33:43.620552 (119586) lic__man INFO    Claim 'fpv' for <ui>.
-2023-12-26 00:33:43.832116 (119586) lic__man INFO    Unclaim 'fpv' for <ui>.
-2023-12-26 00:33:43.832166 (119586) lic__man INFO    Claim 'fpv' for <ui>.
-2023-12-26 00:33:43.836878 (119586) session_ INFO    Starting analysis session with session id 'session_0' (launcher: <local>) ...
-2023-12-26 00:33:43.839717 (119586) session_ INFO    Analysis session with session id 'session_0' started (pid: 119605)
-2023-12-26 00:33:44.717095 (119586) session_ INFO    Analysis session 'session_0' connected to the console (host: 127.0.0.1:51596)
-2023-12-26 00:33:46.183846 (119586) lic__man INFO    Unclaim everything for 'session_0'.
-2023-12-26 00:33:46.221235 (119586) lic__man INFO    Claim 'spv' for 'session_0'.
-2023-12-26 00:33:46.221296 (119586) lic_core INFO    (4) checking out 'jasper_spv' ...
-2023-12-26 00:33:46.258886 (119586) lic_core INFO    ... (4) checkout succeeded
-2023-12-26 00:33:46.291269 (119586) lic__man INFO    Claim 'spv' for 'session_0'.
-2023-12-26 00:33:46.291317 (119586) lic__man INFO    Claim 'spv' for 'session_0/prove-0'.
-2023-12-26 00:33:46.461186 (119586) lic__man INFO    Unclaim everything for 'session_0/prove-0'.
-2023-12-26 00:34:28.416069 (119586) main____ INFO    About to exit: requested from GUI
-2023-12-26 00:34:28.530255 (119586) session_ INFO    Analysis session 'session_0' disconnected.
-2023-12-26 00:34:28.544150 (119586) lic_core INFO    (1) checkin jasper_interactive
-2023-12-26 00:34:28.545605 (119586) lic_core INFO    (3) checkin jasper_fao
-2023-12-26 00:34:28.546815 (119586) lic_core INFO    (4) checkin jasper_spv
-2023-12-26 00:34:28.548935 (119586) main____ INFO    Exiting with status 0.
+2024-02-15 12:25:50.121902 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.121999 (196601) main____ INFO    JasperGold version info
+2024-02-15 12:25:50.122013 (196601) main____ INFO      tool      : JasperGold 2021.03
+2024-02-15 12:25:50.122027 (196601) main____ INFO      version   : 2021.03 FCS 64 bits
+2024-02-15 12:25:50.122035 (196601) main____ INFO      build date: 2021.03.23 02:50:43 UTC
+2024-02-15 12:25:50.122042 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.122049 (196601) main____ INFO    Runtime info:
+2024-02-15 12:25:50.122057 (196601) main____ INFO      platform  : Linux 3.10.0-1127.10.1.el7.x86_64 x86_64
+2024-02-15 12:25:50.122067 (196601) main____ INFO      hostname  : sat4
+2024-02-15 12:25:50.122075 (196601) main____ INFO      pid       : 196601
+2024-02-15 12:25:50.122082 (196601) main____ INFO      arguments : '-style' 'windows' 'fv_jasper/initial_assumption/scripts/spectre-v3.tcl'
+2024-02-15 12:25:50.122095 (196601) main____ INFO      locale    : UTF-8
+2024-02-15 12:25:50.122102 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.122109 (196601) main____ INFO    System resource limits info:
+2024-02-15 12:25:50.122117 (196601) main____ INFO      virtual memory: unlimited
+2024-02-15 12:25:50.122134 (196601) main____ INFO      cpu time      : unlimited
+2024-02-15 12:25:50.122152 (196601) main____ INFO      stack size    : 8388608 B
+2024-02-15 12:25:50.122161 (196601) main____ INFO      core file size: 0 B
+2024-02-15 12:25:50.122172 (196601) main____ INFO      open files    : 1024
+2024-02-15 12:25:50.122179 (196601) main____ INFO      file size     : unlimited
+2024-02-15 12:25:50.122186 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.122192 (196601) main____ INFO    Memory statistics:
+2024-02-15 12:25:50.122200 (196601) main____ INFO      total physical memory  : 263390968 kB
+2024-02-15 12:25:50.122207 (196601) main____ INFO      free physical memory   : 218490348 kB
+2024-02-15 12:25:50.122214 (196601) main____ INFO      committed address space: 50378496 kB
+2024-02-15 12:25:50.122220 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.124011 (196601) main____ INFO    Important environment variables:
+2024-02-15 12:25:50.124037 (196601) main____ INFO      DISPLAY           : ':2'
+2024-02-15 12:25:50.124052 (196601) main____ INFO      JASPER_INSTALL_DIR: '/usr/licensed/cadence/jasper_2021.03'
+2024-02-15 12:25:50.124061 (196601) main____ INFO      LANG              : 'en_US.UTF-8'
+2024-02-15 12:25:50.124070 (196601) main____ INFO      LC_MEASUREMENT    : 'zh_CN.UTF-8'
+2024-02-15 12:25:50.124078 (196601) main____ INFO      LC_MONETARY       : 'zh_CN.UTF-8'
+2024-02-15 12:25:50.124087 (196601) main____ INFO      LC_NUMERIC        : 'zh_CN.UTF-8'
+2024-02-15 12:25:50.124095 (196601) main____ INFO      LC_PAPER          : 'zh_CN.UTF-8'
+2024-02-15 12:25:50.124103 (196601) main____ INFO      LC_TIME           : 'zh_CN.UTF-8'
+2024-02-15 12:25:50.124112 (196601) main____ INFO      LM_LICENSE_FILE   : '5280@license.rc.princeton.edu'
+2024-02-15 12:25:50.124124 (196601) main____ INFO    ----------------------------------------
+2024-02-15 12:25:50.125606 (196601) lic_core INFO    Initializing license system ...
+2024-02-15 12:25:50.126302 (196601) lic_core INFO    ... license system initialized.
+2024-02-15 12:25:50.127640 (196601) lic__man INFO    Claim 'main' for <ui>.
+2024-02-15 12:25:50.127696 (196601) lic_core INFO    (1) checking out 'jasper_interactive' ...
+2024-02-15 12:25:50.176279 (196601) lic_core INFO    ... (1) checkout succeeded
+2024-02-15 12:25:50.176414 (196601) lic__man INFO    Claim 'fpv' for <ui>.
+2024-02-15 12:25:50.176447 (196601) lic_core INFO    (2) checking out 'jasper_fpv' ...
+2024-02-15 12:25:50.205207 (196601) lic_core INFO    ... (2) checkout failed (error: -5) ("FLEXnet ERROR(-5, 0, 0): No such feature exists.")
+2024-02-15 12:25:50.205254 (196601) lic_core INFO    (3) checking out 'jasper_fao' ...
+2024-02-15 12:25:50.286649 (196601) lic_core INFO    ... (3) checkout succeeded
+2024-02-15 12:25:50.287625 (196601) main____ INFO    Tool inactivity delay is 480000 ms.
+2024-02-15 12:25:50.841919 (196601) lic__man INFO    Claim 'fpv' for <ui>.
+2024-02-15 12:25:51.018763 (196601) lic__man INFO    Unclaim 'fpv' for <ui>.
+2024-02-15 12:25:51.018798 (196601) lic__man INFO    Claim 'fpv' for <ui>.
+2024-02-15 12:25:51.022113 (196601) session_ INFO    Starting analysis session with session id 'session_0' (launcher: <local>) ...
+2024-02-15 12:25:51.024627 (196601) session_ INFO    Analysis session with session id 'session_0' started (pid: 196619)
+2024-02-15 12:25:51.812185 (196601) session_ INFO    Analysis session 'session_0' connected to the console (host: 127.0.0.1:38128)
+2024-02-15 12:35:40.913743 (196601) lic__man INFO    Entering idle state.
+2024-02-15 12:37:16.210947 (196601) lic__man INFO    Leaving idle state.
+2024-02-15 12:39:54.386864 (196601) main____ INFO    About to exit: requested from GUI
+2024-02-15 12:39:54.484369 (196601) session_ INFO    Analysis session 'session_0' disconnected.
+2024-02-15 12:39:54.493722 (196601) lic_core INFO    (1) checkin jasper_interactive
+2024-02-15 12:39:54.495071 (196601) lic_core INFO    (3) checkin jasper_fao
+2024-02-15 12:39:54.497132 (196601) main____ INFO    Exiting with status 0.

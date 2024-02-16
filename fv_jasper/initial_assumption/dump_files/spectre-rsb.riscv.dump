@@ -1,0 +1,1359 @@
+
+spectre-rsb.riscv:     file format elf64-littleriscv
+spectre-rsb.riscv
+architecture: riscv:rv64, flags 0x00000112:
+EXEC_P, HAS_SYMS, D_PAGED
+start address 0x0000000080000000
+
+Program Header:
+0x70000003 off    0x00000000000095ec vaddr 0x0000000000000000 paddr 0x0000000000000000 align 2**0
+         filesz 0x000000000000008f memsz 0x0000000000000000 flags r--
+    LOAD off    0x0000000000001000 vaddr 0x0000000080000000 paddr 0x0000000080000000 align 2**12
+         filesz 0x0000000000001360 memsz 0x0000000000001370 flags rwx
+    LOAD off    0x0000000000003000 vaddr 0x0000000080004000 paddr 0x0000000080004000 align 2**12
+         filesz 0x0000000000001280 memsz 0x0000000000001280 flags rw-
+
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .text.init    000001a8  0000000080000000  0000000080000000  00001000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .text.exploit 00000044  0000000080001000  0000000080001000  00002000  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .text.victim  00000044  0000000080001044  0000000080001044  00002044  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  3 .text.main_half_bottom 00000058  0000000080001088  0000000080001088  00002088  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  4 .text.main    0000004e  00000000800010e0  00000000800010e0  000020e0  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  5 .text.init_resetmanager 00000036  000000008000112e  000000008000112e  0000212e  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  6 .text.get_round_info 00000026  0000000080001164  0000000080001164  00002164  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  7 .text.dump_channel 00000060  000000008000118a  000000008000118a  0000218a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  8 .text.next_round 00000050  00000000800011ea  00000000800011ea  000021ea  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  9 .text.exit    00000020  000000008000123a  000000008000123a  0000223a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 10 .text.access_time 0000007c  000000008000125a  000000008000125a  0000225a  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 11 .text.handle_trap 0000001c  00000000800012d6  00000000800012d6  000022d6  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 12 .text._init   0000002e  00000000800012f2  00000000800012f2  000022f2  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 13 .rodata       00000030  0000000080001320  0000000080001320  00002320  2**3
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+ 14 .sdata        00000010  0000000080001350  0000000080001350  00002350  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 15 .sbss         00000010  0000000080001360  0000000080001360  00002360  2**3
+                  ALLOC
+ 16 .parafuzz_channel 00000280  0000000080005000  0000000080005000  00004000  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 17 .parafuzz_secret 00000075  0000000080004000  0000000080004000  00003000  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+ 18 .debug_info   000018fc  0000000000000000  0000000000000000  00004280  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 19 .debug_abbrev 00000634  0000000000000000  0000000000000000  00005b7c  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 20 .debug_aranges 000003c0  0000000000000000  0000000000000000  000061b0  2**4
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 21 .debug_rnglists 0000039b  0000000000000000  0000000000000000  00006570  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 22 .debug_line   00002331  0000000000000000  0000000000000000  0000690b  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 23 .debug_str    00000560  0000000000000000  0000000000000000  00008c3c  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 24 .debug_line_str 0000042f  0000000000000000  0000000000000000  0000919c  2**0
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+ 25 .comment      00000021  0000000000000000  0000000000000000  000095cb  2**0
+                  CONTENTS, READONLY
+ 26 .riscv.attributes 0000008f  0000000000000000  0000000000000000  000095ec  2**0
+                  CONTENTS, READONLY
+ 27 .debug_frame  00000968  0000000000000000  0000000000000000  00009680  2**3
+                  CONTENTS, READONLY, DEBUGGING, OCTETS
+SYMBOL TABLE:
+0000000080000000 l    d  .text.init	0000000000000000 .text.init
+0000000080001000 l    d  .text.exploit	0000000000000000 .text.exploit
+0000000080001044 l    d  .text.victim	0000000000000000 .text.victim
+0000000080001088 l    d  .text.main_half_bottom	0000000000000000 .text.main_half_bottom
+00000000800010e0 l    d  .text.main	0000000000000000 .text.main
+000000008000112e l    d  .text.init_resetmanager	0000000000000000 .text.init_resetmanager
+0000000080001164 l    d  .text.get_round_info	0000000000000000 .text.get_round_info
+000000008000118a l    d  .text.dump_channel	0000000000000000 .text.dump_channel
+00000000800011ea l    d  .text.next_round	0000000000000000 .text.next_round
+000000008000123a l    d  .text.exit	0000000000000000 .text.exit
+000000008000125a l    d  .text.access_time	0000000000000000 .text.access_time
+00000000800012d6 l    d  .text.handle_trap	0000000000000000 .text.handle_trap
+00000000800012f2 l    d  .text._init	0000000000000000 .text._init
+0000000080001320 l    d  .rodata	0000000000000000 .rodata
+0000000080001350 l    d  .sdata	0000000000000000 .sdata
+0000000080001360 l    d  .sbss	0000000000000000 .sbss
+0000000080005000 l    d  .parafuzz_channel	0000000000000000 .parafuzz_channel
+0000000080004000 l    d  .parafuzz_secret	0000000000000000 .parafuzz_secret
+0000000000000000 l    d  .debug_info	0000000000000000 .debug_info
+0000000000000000 l    d  .debug_abbrev	0000000000000000 .debug_abbrev
+0000000000000000 l    d  .debug_aranges	0000000000000000 .debug_aranges
+0000000000000000 l    d  .debug_rnglists	0000000000000000 .debug_rnglists
+0000000000000000 l    d  .debug_line	0000000000000000 .debug_line
+0000000000000000 l    d  .debug_str	0000000000000000 .debug_str
+0000000000000000 l    d  .debug_line_str	0000000000000000 .debug_line_str
+0000000000000000 l    d  .comment	0000000000000000 .comment
+0000000000000000 l    d  .riscv.attributes	0000000000000000 .riscv.attributes
+0000000000000000 l    d  .debug_frame	0000000000000000 .debug_frame
+0000000000000000 l    df *ABS*	0000000000000000 ccX7uHD9.o
+0000000080000114 l       .text.init	0000000000000000 trap_entry
+0000000000000000 l    df *ABS*	0000000000000000 main.c
+0000000000000000 l    df *ABS*	0000000000000000 parafuzz.c
+0000000000000000 l    df *ABS*	0000000000000000 syscalls.c
+0000000080001b50 g       .sdata	0000000000000000 __global_pointer$
+0000000080001350 g     O .sdata	0000000000000008 state_ptr
+0000000080001044 g     F .text.victim	0000000000000044 victim
+00000000800012d6  w    F .text.handle_trap	000000000000001c handle_trap
+0000000080001358 g     O .sdata	0000000000000008 reset_ptr
+000000008000112e g     F .text.init_resetmanager	0000000000000036 init_resetmanager
+00000000800012f2 g     F .text._init	000000000000002e _init
+0000000080000000 g       .text.init	0000000000000000 _start
+000000008000125a g     F .text.access_time	000000000000007c access_time
+0000000080001360 g     O .sbss	0000000000000008 guess
+00000000800011ea g     F .text.next_round	0000000000000050 next_round
+0000000080001164 g     F .text.get_round_info	0000000000000026 get_round_info
+000000008000118a g     F .text.dump_channel	0000000000000060 dump_channel
+0000000080001368 g     O .sbss	0000000000000008 current_round
+00000000800010e0 g     F .text.main	000000000000004e main
+0000000080001370 g     O .parafuzz_channel	0000000000000000 trapoline
+0000000080005000 g     O .parafuzz_channel	0000000000000280 array
+0000000080001370 g       .sbss	0000000000000000 _tdata_end
+0000000080005280 g       .parafuzz_channel	0000000000000000 _end
+0000000080001370 g       .sbss	0000000000000000 _tdata_begin
+0000000080004000 g     O .parafuzz_secret	0000000000000075 secret
+000000008000123a g     F .text.exit	0000000000000020 exit
+0000000080004075 g       .parafuzz_secret	0000000000000000 _parafuzz_secret_end
+0000000080001370 g       .sbss	0000000000000000 _tbss_end
+0000000080001000 g     F .text.exploit	0000000000000044 exploit
+0000000080004000 g       .parafuzz_secret	0000000000000000 _parafuzz_secret_start
+0000000080001088 g     F .text.main_half_bottom	0000000000000058 main_half_bottom
+
+
+
+Disassembly of section .text.init:
+
+0000000080000000 <_start>:
+
+  .section ".text.init"
+  .globl _start
+  .option norelax
+_start:
+  li  x1, 0
+    80000000:	4081                	li	ra,0
+  li  x2, 0
+    80000002:	4101                	li	sp,0
+  li  x3, 0
+    80000004:	4181                	li	gp,0
+  li  x4, 0
+    80000006:	4201                	li	tp,0
+  li  x5, 0
+    80000008:	4281                	li	t0,0
+  li  x6, 0
+    8000000a:	4301                	li	t1,0
+  li  x7, 0
+    8000000c:	4381                	li	t2,0
+  li  x8, 0
+    8000000e:	4401                	li	s0,0
+  li  x9, 0
+    80000010:	4481                	li	s1,0
+  li  x10,0
+    80000012:	4501                	li	a0,0
+  li  x11,0
+    80000014:	4581                	li	a1,0
+  li  x12,0
+    80000016:	4601                	li	a2,0
+  li  x13,0
+    80000018:	4681                	li	a3,0
+  li  x14,0
+    8000001a:	4701                	li	a4,0
+  li  x15,0
+    8000001c:	4781                	li	a5,0
+  li  x16,0
+    8000001e:	4801                	li	a6,0
+  li  x17,0
+    80000020:	4881                	li	a7,0
+  li  x18,0
+    80000022:	4901                	li	s2,0
+  li  x19,0
+    80000024:	4981                	li	s3,0
+  li  x20,0
+    80000026:	4a01                	li	s4,0
+  li  x21,0
+    80000028:	4a81                	li	s5,0
+  li  x22,0
+    8000002a:	4b01                	li	s6,0
+  li  x23,0
+    8000002c:	4b81                	li	s7,0
+  li  x24,0
+    8000002e:	4c01                	li	s8,0
+  li  x25,0
+    80000030:	4c81                	li	s9,0
+  li  x26,0
+    80000032:	4d01                	li	s10,0
+  li  x27,0
+    80000034:	4d81                	li	s11,0
+  li  x28,0
+    80000036:	4e01                	li	t3,0
+  li  x29,0
+    80000038:	4e81                	li	t4,0
+  li  x30,0
+    8000003a:	4f01                	li	t5,0
+  li  x31,0
+    8000003c:	4f81                	li	t6,0
+
+  # enable FPU, vector, and accelerator if present
+  li t0, MSTATUS_FS | MSTATUS_XS | MSTATUS_VS
+    8000003e:	62f9                	lui	t0,0x1e
+    80000040:	6002829b          	addiw	t0,t0,1536 # 1e600 <_start-0x7ffe1a00>
+  csrs mstatus, t0
+    80000044:	3002a073          	csrs	mstatus,t0
+
+#ifdef __riscv_flen
+  # initialize FPU if we have one
+  la t0, 1f
+    80000048:	00000297          	auipc	t0,0x0
+    8000004c:	09028293          	addi	t0,t0,144 # 800000d8 <_start+0xd8>
+  csrw mtvec, t0
+    80000050:	30529073          	csrw	mtvec,t0
+
+  fssr    x0
+    80000054:	00301073          	fscsr	zero
+  fmv.s.x f0, x0
+    80000058:	f0000053          	fmv.w.x	ft0,zero
+  fmv.s.x f1, x0
+    8000005c:	f00000d3          	fmv.w.x	ft1,zero
+  fmv.s.x f2, x0
+    80000060:	f0000153          	fmv.w.x	ft2,zero
+  fmv.s.x f3, x0
+    80000064:	f00001d3          	fmv.w.x	ft3,zero
+  fmv.s.x f4, x0
+    80000068:	f0000253          	fmv.w.x	ft4,zero
+  fmv.s.x f5, x0
+    8000006c:	f00002d3          	fmv.w.x	ft5,zero
+  fmv.s.x f6, x0
+    80000070:	f0000353          	fmv.w.x	ft6,zero
+  fmv.s.x f7, x0
+    80000074:	f00003d3          	fmv.w.x	ft7,zero
+  fmv.s.x f8, x0
+    80000078:	f0000453          	fmv.w.x	fs0,zero
+  fmv.s.x f9, x0
+    8000007c:	f00004d3          	fmv.w.x	fs1,zero
+  fmv.s.x f10,x0
+    80000080:	f0000553          	fmv.w.x	fa0,zero
+  fmv.s.x f11,x0
+    80000084:	f00005d3          	fmv.w.x	fa1,zero
+  fmv.s.x f12,x0
+    80000088:	f0000653          	fmv.w.x	fa2,zero
+  fmv.s.x f13,x0
+    8000008c:	f00006d3          	fmv.w.x	fa3,zero
+  fmv.s.x f14,x0
+    80000090:	f0000753          	fmv.w.x	fa4,zero
+  fmv.s.x f15,x0
+    80000094:	f00007d3          	fmv.w.x	fa5,zero
+  fmv.s.x f16,x0
+    80000098:	f0000853          	fmv.w.x	fa6,zero
+  fmv.s.x f17,x0
+    8000009c:	f00008d3          	fmv.w.x	fa7,zero
+  fmv.s.x f18,x0
+    800000a0:	f0000953          	fmv.w.x	fs2,zero
+  fmv.s.x f19,x0
+    800000a4:	f00009d3          	fmv.w.x	fs3,zero
+  fmv.s.x f20,x0
+    800000a8:	f0000a53          	fmv.w.x	fs4,zero
+  fmv.s.x f21,x0
+    800000ac:	f0000ad3          	fmv.w.x	fs5,zero
+  fmv.s.x f22,x0
+    800000b0:	f0000b53          	fmv.w.x	fs6,zero
+  fmv.s.x f23,x0
+    800000b4:	f0000bd3          	fmv.w.x	fs7,zero
+  fmv.s.x f24,x0
+    800000b8:	f0000c53          	fmv.w.x	fs8,zero
+  fmv.s.x f25,x0
+    800000bc:	f0000cd3          	fmv.w.x	fs9,zero
+  fmv.s.x f26,x0
+    800000c0:	f0000d53          	fmv.w.x	fs10,zero
+  fmv.s.x f27,x0
+    800000c4:	f0000dd3          	fmv.w.x	fs11,zero
+  fmv.s.x f28,x0
+    800000c8:	f0000e53          	fmv.w.x	ft8,zero
+  fmv.s.x f29,x0
+    800000cc:	f0000ed3          	fmv.w.x	ft9,zero
+  fmv.s.x f30,x0
+    800000d0:	f0000f53          	fmv.w.x	ft10,zero
+  fmv.s.x f31,x0
+    800000d4:	f0000fd3          	fmv.w.x	ft11,zero
+1:
+#endif
+
+  # initialize trap vector
+  la t0, trap_entry
+    800000d8:	00000297          	auipc	t0,0x0
+    800000dc:	03c28293          	addi	t0,t0,60 # 80000114 <trap_entry>
+  csrw mtvec, t0
+    800000e0:	30529073          	csrw	mtvec,t0
+
+  # initialize global pointer
+.option push
+.option norelax
+  la gp, __global_pointer$
+    800000e4:	00002197          	auipc	gp,0x2
+    800000e8:	a6c18193          	addi	gp,gp,-1428 # 80001b50 <__global_pointer$>
+.option pop
+
+  la  tp, _end + 63
+    800000ec:	00005217          	auipc	tp,0x5
+    800000f0:	1d320213          	addi	tp,tp,467 # 800052bf <_end+0x3f>
+  and tp, tp, -64
+    800000f4:	fc027213          	andi	tp,tp,-64
+
+  # get core id
+  csrr a0, mhartid
+    800000f8:	f1402573          	csrr	a0,mhartid
+  # for now, assume only 1 core
+  li a1, 1
+    800000fc:	4585                	li	a1,1
+1:bgeu a0, a1, 1b
+    800000fe:	00b57063          	bgeu	a0,a1,800000fe <_start+0xfe>
+
+  # give each core 128KB of stack + TLS
+#define STKSHIFT 17
+  add sp, a0, 1
+    80000102:	00150113          	addi	sp,a0,1
+  sll sp, sp, STKSHIFT
+    80000106:	0146                	slli	sp,sp,0x11
+  add sp, sp, tp
+    80000108:	9112                	add	sp,sp,tp
+  sll a2, a0, STKSHIFT
+    8000010a:	01151613          	slli	a2,a0,0x11
+  add tp, tp, a2
+    8000010e:	9232                	add	tp,tp,a2
+
+  j _init
+    80000110:	1e20106f          	j	800012f2 <_init>
+
+0000000080000114 <trap_entry>:
+
+  .align 2
+trap_entry:
+  addi sp, sp, -272
+    80000114:	716d                	addi	sp,sp,-272
+
+  SREG x1, 1*REGBYTES(sp)
+    80000116:	e406                	sd	ra,8(sp)
+  SREG x2, 2*REGBYTES(sp)
+    80000118:	e80a                	sd	sp,16(sp)
+  SREG x3, 3*REGBYTES(sp)
+    8000011a:	ec0e                	sd	gp,24(sp)
+  SREG x4, 4*REGBYTES(sp)
+    8000011c:	f012                	sd	tp,32(sp)
+  SREG x5, 5*REGBYTES(sp)
+    8000011e:	f416                	sd	t0,40(sp)
+  SREG x6, 6*REGBYTES(sp)
+    80000120:	f81a                	sd	t1,48(sp)
+  SREG x7, 7*REGBYTES(sp)
+    80000122:	fc1e                	sd	t2,56(sp)
+  SREG x8, 8*REGBYTES(sp)
+    80000124:	e0a2                	sd	s0,64(sp)
+  SREG x9, 9*REGBYTES(sp)
+    80000126:	e4a6                	sd	s1,72(sp)
+  SREG x10, 10*REGBYTES(sp)
+    80000128:	e8aa                	sd	a0,80(sp)
+  SREG x11, 11*REGBYTES(sp)
+    8000012a:	ecae                	sd	a1,88(sp)
+  SREG x12, 12*REGBYTES(sp)
+    8000012c:	f0b2                	sd	a2,96(sp)
+  SREG x13, 13*REGBYTES(sp)
+    8000012e:	f4b6                	sd	a3,104(sp)
+  SREG x14, 14*REGBYTES(sp)
+    80000130:	f8ba                	sd	a4,112(sp)
+  SREG x15, 15*REGBYTES(sp)
+    80000132:	fcbe                	sd	a5,120(sp)
+  SREG x16, 16*REGBYTES(sp)
+    80000134:	e142                	sd	a6,128(sp)
+  SREG x17, 17*REGBYTES(sp)
+    80000136:	e546                	sd	a7,136(sp)
+  SREG x18, 18*REGBYTES(sp)
+    80000138:	e94a                	sd	s2,144(sp)
+  SREG x19, 19*REGBYTES(sp)
+    8000013a:	ed4e                	sd	s3,152(sp)
+  SREG x20, 20*REGBYTES(sp)
+    8000013c:	f152                	sd	s4,160(sp)
+  SREG x21, 21*REGBYTES(sp)
+    8000013e:	f556                	sd	s5,168(sp)
+  SREG x22, 22*REGBYTES(sp)
+    80000140:	f95a                	sd	s6,176(sp)
+  SREG x23, 23*REGBYTES(sp)
+    80000142:	fd5e                	sd	s7,184(sp)
+  SREG x24, 24*REGBYTES(sp)
+    80000144:	e1e2                	sd	s8,192(sp)
+  SREG x25, 25*REGBYTES(sp)
+    80000146:	e5e6                	sd	s9,200(sp)
+  SREG x26, 26*REGBYTES(sp)
+    80000148:	e9ea                	sd	s10,208(sp)
+  SREG x27, 27*REGBYTES(sp)
+    8000014a:	edee                	sd	s11,216(sp)
+  SREG x28, 28*REGBYTES(sp)
+    8000014c:	f1f2                	sd	t3,224(sp)
+  SREG x29, 29*REGBYTES(sp)
+    8000014e:	f5f6                	sd	t4,232(sp)
+  SREG x30, 30*REGBYTES(sp)
+    80000150:	f9fa                	sd	t5,240(sp)
+  SREG x31, 31*REGBYTES(sp)
+    80000152:	fdfe                	sd	t6,248(sp)
+
+  csrr a0, mcause
+    80000154:	34202573          	csrr	a0,mcause
+  csrr a1, mepc
+    80000158:	341025f3          	csrr	a1,mepc
+  mv a2, sp
+    8000015c:	860a                	mv	a2,sp
+  jal handle_trap
+    8000015e:	178010ef          	jal	ra,800012d6 <handle_trap>
+
+  LREG x1, 1*REGBYTES(sp)
+    80000162:	60a2                	ld	ra,8(sp)
+  LREG x2, 2*REGBYTES(sp)
+    80000164:	6142                	ld	sp,16(sp)
+  LREG x3, 3*REGBYTES(sp)
+    80000166:	61e2                	ld	gp,24(sp)
+  LREG x4, 4*REGBYTES(sp)
+    80000168:	7202                	ld	tp,32(sp)
+  LREG x5, 5*REGBYTES(sp)
+    8000016a:	72a2                	ld	t0,40(sp)
+  LREG x6, 6*REGBYTES(sp)
+    8000016c:	7342                	ld	t1,48(sp)
+  LREG x7, 7*REGBYTES(sp)
+    8000016e:	73e2                	ld	t2,56(sp)
+  LREG x8, 8*REGBYTES(sp)
+    80000170:	6406                	ld	s0,64(sp)
+  LREG x9, 9*REGBYTES(sp)
+    80000172:	64a6                	ld	s1,72(sp)
+  LREG x10, 10*REGBYTES(sp)
+    80000174:	6546                	ld	a0,80(sp)
+  LREG x11, 11*REGBYTES(sp)
+    80000176:	65e6                	ld	a1,88(sp)
+  LREG x12, 12*REGBYTES(sp)
+    80000178:	7606                	ld	a2,96(sp)
+  LREG x13, 13*REGBYTES(sp)
+    8000017a:	76a6                	ld	a3,104(sp)
+  LREG x14, 14*REGBYTES(sp)
+    8000017c:	7746                	ld	a4,112(sp)
+  LREG x15, 15*REGBYTES(sp)
+    8000017e:	77e6                	ld	a5,120(sp)
+  LREG x16, 16*REGBYTES(sp)
+    80000180:	680a                	ld	a6,128(sp)
+  LREG x17, 17*REGBYTES(sp)
+    80000182:	68aa                	ld	a7,136(sp)
+  LREG x18, 18*REGBYTES(sp)
+    80000184:	694a                	ld	s2,144(sp)
+  LREG x19, 19*REGBYTES(sp)
+    80000186:	69ea                	ld	s3,152(sp)
+  LREG x20, 20*REGBYTES(sp)
+    80000188:	7a0a                	ld	s4,160(sp)
+  LREG x21, 21*REGBYTES(sp)
+    8000018a:	7aaa                	ld	s5,168(sp)
+  LREG x22, 22*REGBYTES(sp)
+    8000018c:	7b4a                	ld	s6,176(sp)
+  LREG x23, 23*REGBYTES(sp)
+    8000018e:	7bea                	ld	s7,184(sp)
+  LREG x24, 24*REGBYTES(sp)
+    80000190:	6c0e                	ld	s8,192(sp)
+  LREG x25, 25*REGBYTES(sp)
+    80000192:	6cae                	ld	s9,200(sp)
+  LREG x26, 26*REGBYTES(sp)
+    80000194:	6d4e                	ld	s10,208(sp)
+  LREG x27, 27*REGBYTES(sp)
+    80000196:	6dee                	ld	s11,216(sp)
+  LREG x28, 28*REGBYTES(sp)
+    80000198:	7e0e                	ld	t3,224(sp)
+  LREG x29, 29*REGBYTES(sp)
+    8000019a:	7eae                	ld	t4,232(sp)
+  LREG x30, 30*REGBYTES(sp)
+    8000019c:	7f4e                	ld	t5,240(sp)
+  LREG x31, 31*REGBYTES(sp)
+    8000019e:	7fee                	ld	t6,248(sp)
+
+  addi sp, sp, 272
+    800001a0:	6151                	addi	sp,sp,272
+  mret
+    800001a2:	30200073          	mret
+    800001a6:	0001                	nop
+
+Disassembly of section .text.exploit:
+
+0000000080001000 <exploit>:
+
+void main_half_bottom();
+
+__attribute__((naked))
+void exploit() {
+  uint64_t dummy1 = 0xa234b057963aef89ul;
+    80001000:	00000797          	auipc	a5,0x0
+    80001004:	32078793          	addi	a5,a5,800 # 80001320 <_init+0x2e>
+    80001008:	0007b903          	ld	s2,0(a5)
+  uint64_t dummy2 = 0x56fea3467def0136ul;
+    8000100c:	00000797          	auipc	a5,0x0
+    80001010:	31c78793          	addi	a5,a5,796 # 80001328 <_init+0x36>
+    80001014:	6384                	ld	s1,0(a5)
+  
+  asm("fcvt.s.lu	fa4, %[dummy1]\n"
+    80001016:	00000797          	auipc	a5,0x0
+    8000101a:	07278793          	addi	a5,a5,114 # 80001088 <main_half_bottom>
+    8000101e:	d0397753          	fcvt.s.lu	fa4,s2
+    80001022:	d034f7d3          	fcvt.s.lu	fa5,s1
+    80001026:	18e7f7d3          	fdiv.s	fa5,fa5,fa4
+    8000102a:	18e7f7d3          	fdiv.s	fa5,fa5,fa4
+    8000102e:	18e7f7d3          	fdiv.s	fa5,fa5,fa4
+    80001032:	18e7f7d3          	fdiv.s	fa5,fa5,fa4
+    80001036:	c03792d3          	fcvt.lu.s	t0,fa5,rtz
+    8000103a:	00f280b3          	add	ra,t0,a5
+    8000103e:	00008067          	ret
+      "jalr zero, 0(ra)\n"
+      :: [dummy2] "r" (dummy2),
+         [dummy1] "r" (dummy1),
+         [return_func] "r" (&main_half_bottom)
+      : "ra", "t0", "fa4", "fa5");
+}
+    80001042:	0001                	nop
+
+Disassembly of section .text.victim:
+
+0000000080001044 <victim>:
+
+void victim(int64_t offset) {
+    80001044:	7179                	addi	sp,sp,-48
+    80001046:	f406                	sd	ra,40(sp)
+    80001048:	f022                	sd	s0,32(sp)
+    8000104a:	1800                	addi	s0,sp,48
+    8000104c:	fca43c23          	sd	a0,-40(s0)
+  asm("add t0, zero, %[exploit_func]\n"
+    80001050:	00000797          	auipc	a5,0x0
+    80001054:	fb078793          	addi	a5,a5,-80 # 80001000 <exploit>
+    80001058:	82be                	mv	t0,a5
+    8000105a:	000280e7          	jalr	t0
+      "jalr ra, 0(t0)\n"
+      :: [exploit_func] "r" (&exploit)
+      : "ra", "t0");
+  leak_me:
+    uint8_t dummy3 = array[trapoline[offset]*CACHE_BLOCK];
+    8000105e:	82018713          	addi	a4,gp,-2016 # 80001370 <trapoline>
+    80001062:	fd843783          	ld	a5,-40(s0)
+    80001066:	97ba                	add	a5,a5,a4
+    80001068:	0007c783          	lbu	a5,0(a5)
+    8000106c:	2781                	sext.w	a5,a5
+    8000106e:	0067979b          	slliw	a5,a5,0x6
+    80001072:	2781                	sext.w	a5,a5
+    80001074:	00004717          	auipc	a4,0x4
+    80001078:	f8c70713          	addi	a4,a4,-116 # 80005000 <array>
+    8000107c:	97ba                	add	a5,a5,a4
+    8000107e:	0007c783          	lbu	a5,0(a5)
+    80001082:	fef407a3          	sb	a5,-17(s0)
+  goto leak_me;
+    80001086:	bfe1                	j	8000105e <victim+0x1a>
+
+Disassembly of section .text.main_half_bottom:
+
+0000000080001088 <main_half_bottom>:
+}
+
+void main_half_bottom() {
+    80001088:	1101                	addi	sp,sp,-32
+    8000108a:	ec06                	sd	ra,24(sp)
+    8000108c:	e822                	sd	s0,16(sp)
+    8000108e:	1000                	addi	s0,sp,32
+  uint64_t res = access_time(&array[0], guess, 0);
+    80001090:	00000797          	auipc	a5,0x0
+    80001094:	2d078793          	addi	a5,a5,720 # 80001360 <guess>
+    80001098:	639c                	ld	a5,0(a5)
+    8000109a:	2781                	sext.w	a5,a5
+    8000109c:	4601                	li	a2,0
+    8000109e:	85be                	mv	a1,a5
+    800010a0:	00004517          	auipc	a0,0x4
+    800010a4:	f6050513          	addi	a0,a0,-160 # 80005000 <array>
+    800010a8:	1b2000ef          	jal	ra,8000125a <access_time>
+    800010ac:	fea43423          	sd	a0,-24(s0)
+  dump_channel(res, &array[0] + guess*CACHE_BLOCK);
+    800010b0:	00000797          	auipc	a5,0x0
+    800010b4:	2b078793          	addi	a5,a5,688 # 80001360 <guess>
+    800010b8:	639c                	ld	a5,0(a5)
+    800010ba:	00679713          	slli	a4,a5,0x6
+    800010be:	00004797          	auipc	a5,0x4
+    800010c2:	f4278793          	addi	a5,a5,-190 # 80005000 <array>
+    800010c6:	97ba                	add	a5,a5,a4
+    800010c8:	85be                	mv	a1,a5
+    800010ca:	fe843503          	ld	a0,-24(s0)
+    800010ce:	0bc000ef          	jal	ra,8000118a <dump_channel>
+  next_round();
+    800010d2:	118000ef          	jal	ra,800011ea <next_round>
+}
+    800010d6:	0001                	nop
+    800010d8:	60e2                	ld	ra,24(sp)
+    800010da:	6442                	ld	s0,16(sp)
+    800010dc:	6105                	addi	sp,sp,32
+    800010de:	8082                	ret
+
+Disassembly of section .text.main:
+
+00000000800010e0 <main>:
+
+int main(int argc, char* argv[] ) {
+    800010e0:	7179                	addi	sp,sp,-48
+    800010e2:	f406                	sd	ra,40(sp)
+    800010e4:	f022                	sd	s0,32(sp)
+    800010e6:	1800                	addi	s0,sp,48
+    800010e8:	87aa                	mv	a5,a0
+    800010ea:	fcb43823          	sd	a1,-48(s0)
+    800010ee:	fcf42e23          	sw	a5,-36(s0)
+  init_resetmanager();
+    800010f2:	03c000ef          	jal	ra,8000112e <init_resetmanager>
+  guess = get_round_info();
+    800010f6:	06e000ef          	jal	ra,80001164 <get_round_info>
+    800010fa:	872a                	mv	a4,a0
+    800010fc:	00000797          	auipc	a5,0x0
+    80001100:	26478793          	addi	a5,a5,612 # 80001360 <guess>
+    80001104:	e398                	sd	a4,0(a5)
+  // uint8_t dummy3 = secret[LEAK_TARGET];
+  int64_t secret_offset = (unsigned char*)&secret[LEAK_TARGET] - (unsigned char*)&trapoline;
+    80001106:	00003717          	auipc	a4,0x3
+    8000110a:	efb70713          	addi	a4,a4,-261 # 80004001 <secret+0x1>
+    8000110e:	82018793          	addi	a5,gp,-2016 # 80001370 <trapoline>
+    80001112:	40f707b3          	sub	a5,a4,a5
+    80001116:	fef43423          	sd	a5,-24(s0)
+  victim(secret_offset);
+    8000111a:	fe843503          	ld	a0,-24(s0)
+    8000111e:	f27ff0ef          	jal	ra,80001044 <victim>
+
+  return 0;
+    80001122:	4781                	li	a5,0
+}
+    80001124:	853e                	mv	a0,a5
+    80001126:	70a2                	ld	ra,40(sp)
+    80001128:	7402                	ld	s0,32(sp)
+    8000112a:	6145                	addi	sp,sp,48
+    8000112c:	8082                	ret
+
+Disassembly of section .text.init_resetmanager:
+
+000000008000112e <init_resetmanager>:
+#define GUESS_START   100
+#define GUESS_END     105
+
+extern char secret[];
+
+void init_resetmanager() {
+    8000112e:	1141                	addi	sp,sp,-16
+    80001130:	e406                	sd	ra,8(sp)
+    80001132:	e022                	sd	s0,0(sp)
+    80001134:	0800                	addi	s0,sp,16
+  current_round = get_round_info();
+    80001136:	02e000ef          	jal	ra,80001164 <get_round_info>
+    8000113a:	872a                	mv	a4,a0
+    8000113c:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    80001140:	e398                	sd	a4,0(a5)
+  if (current_round == 0) {
+    80001142:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    80001146:	639c                	ld	a5,0(a5)
+    80001148:	eb89                	bnez	a5,8000115a <init_resetmanager+0x2c>
+    *state_ptr = GUESS_START;
+    8000114a:	00000797          	auipc	a5,0x0
+    8000114e:	20678793          	addi	a5,a5,518 # 80001350 <state_ptr>
+    80001152:	639c                	ld	a5,0(a5)
+    80001154:	06400713          	li	a4,100
+    80001158:	e398                	sd	a4,0(a5)
+  }
+}
+    8000115a:	0001                	nop
+    8000115c:	60a2                	ld	ra,8(sp)
+    8000115e:	6402                	ld	s0,0(sp)
+    80001160:	0141                	addi	sp,sp,16
+    80001162:	8082                	ret
+
+Disassembly of section .text.get_round_info:
+
+0000000080001164 <get_round_info>:
+
+uint64_t get_round_info() {
+    80001164:	1141                	addi	sp,sp,-16
+    80001166:	e422                	sd	s0,8(sp)
+    80001168:	0800                	addi	s0,sp,16
+  current_round = *state_ptr;
+    8000116a:	00000797          	auipc	a5,0x0
+    8000116e:	1e678793          	addi	a5,a5,486 # 80001350 <state_ptr>
+    80001172:	639c                	ld	a5,0(a5)
+    80001174:	6398                	ld	a4,0(a5)
+    80001176:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    8000117a:	e398                	sd	a4,0(a5)
+  return current_round;
+    8000117c:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    80001180:	639c                	ld	a5,0(a5)
+}
+    80001182:	853e                	mv	a0,a5
+    80001184:	6422                	ld	s0,8(sp)
+    80001186:	0141                	addi	sp,sp,16
+    80001188:	8082                	ret
+
+Disassembly of section .text.dump_channel:
+
+000000008000118a <dump_channel>:
+
+void dump_channel(uint64_t time, uint8_t* addr) {
+    8000118a:	1101                	addi	sp,sp,-32
+    8000118c:	ec22                	sd	s0,24(sp)
+    8000118e:	1000                	addi	s0,sp,32
+    80001190:	fea43423          	sd	a0,-24(s0)
+    80001194:	feb43023          	sd	a1,-32(s0)
+  asm volatile(
+    80001198:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    8000119c:	638c                	ld	a1,0(a5)
+    8000119e:	00000797          	auipc	a5,0x0
+    800011a2:	19278793          	addi	a5,a5,402 # 80001330 <_init+0x3e>
+    800011a6:	639c                	ld	a5,0(a5)
+    800011a8:	00000717          	auipc	a4,0x0
+    800011ac:	19070713          	addi	a4,a4,400 # 80001338 <_init+0x46>
+    800011b0:	6318                	ld	a4,0(a4)
+    800011b2:	00000697          	auipc	a3,0x0
+    800011b6:	18e68693          	addi	a3,a3,398 # 80001340 <_init+0x4e>
+    800011ba:	6294                	ld	a3,0(a3)
+    800011bc:	fe843603          	ld	a2,-24(s0)
+    800011c0:	fe043503          	ld	a0,-32(s0)
+    800011c4:	4829                	li	a6,10
+    800011c6:	80071073          	csrw	0x800,a4
+    800011ca:	80051073          	csrw	0x800,a0
+    800011ce:	80079073          	csrw	0x800,a5
+    800011d2:	80059073          	csrw	0x800,a1
+    800011d6:	80061073          	csrw	0x800,a2
+    800011da:	80069073          	csrw	0x800,a3
+    800011de:	80081073          	csrw	0x800,a6
+      [time] "r" (time),
+      [guess] "r" (current_round),
+      [addr] "r" (addr),
+      [done] "r" ('\n')
+  );
+}
+    800011e2:	0001                	nop
+    800011e4:	6462                	ld	s0,24(sp)
+    800011e6:	6105                	addi	sp,sp,32
+    800011e8:	8082                	ret
+
+Disassembly of section .text.next_round:
+
+00000000800011ea <next_round>:
+
+void next_round() {
+    800011ea:	1141                	addi	sp,sp,-16
+    800011ec:	e406                	sd	ra,8(sp)
+    800011ee:	e022                	sd	s0,0(sp)
+    800011f0:	0800                	addi	s0,sp,16
+  if (current_round >= GUESS_END) {
+    800011f2:	81818793          	addi	a5,gp,-2024 # 80001368 <current_round>
+    800011f6:	6398                	ld	a4,0(a5)
+    800011f8:	06800793          	li	a5,104
+    800011fc:	00e7f563          	bgeu	a5,a4,80001206 <next_round+0x1c>
+    //   "csrw 0x800, %[secret]\n"
+    //   : :
+    //     [default_mode] "r" ((CMD_SWITCH_STATE | STATE_DEFAULT)), 
+    //     [secret] "r" (secret[LEAK_TARGET])
+    // );
+    exit(0);
+    80001200:	4501                	li	a0,0
+    80001202:	038000ef          	jal	ra,8000123a <exit>
+  } else {
+    *state_ptr = *state_ptr + 1;
+    80001206:	00000797          	auipc	a5,0x0
+    8000120a:	14a78793          	addi	a5,a5,330 # 80001350 <state_ptr>
+    8000120e:	639c                	ld	a5,0(a5)
+    80001210:	6398                	ld	a4,0(a5)
+    80001212:	00000797          	auipc	a5,0x0
+    80001216:	13e78793          	addi	a5,a5,318 # 80001350 <state_ptr>
+    8000121a:	639c                	ld	a5,0(a5)
+    8000121c:	0705                	addi	a4,a4,1
+    8000121e:	e398                	sd	a4,0(a5)
+    *reset_ptr = 50;
+    80001220:	00000797          	auipc	a5,0x0
+    80001224:	13878793          	addi	a5,a5,312 # 80001358 <reset_ptr>
+    80001228:	639c                	ld	a5,0(a5)
+    8000122a:	03200713          	li	a4,50
+    8000122e:	e398                	sd	a4,0(a5)
+  }
+}
+    80001230:	0001                	nop
+    80001232:	60a2                	ld	ra,8(sp)
+    80001234:	6402                	ld	s0,0(sp)
+    80001236:	0141                	addi	sp,sp,16
+    80001238:	8082                	ret
+
+Disassembly of section .text.exit:
+
+000000008000123a <exit>:
+
+void exit(int code) {
+    8000123a:	1101                	addi	sp,sp,-32
+    8000123c:	ec22                	sd	s0,24(sp)
+    8000123e:	1000                	addi	s0,sp,32
+    80001240:	87aa                	mv	a5,a0
+    80001242:	fef42623          	sw	a5,-20(s0)
+  asm volatile(
+    "csrw 0x800, %[stop]\n"
+    : :
+      [stop] "r" (CMD_POWER_OFF | code)
+    80001246:	fec42703          	lw	a4,-20(s0)
+    8000124a:	00000797          	auipc	a5,0x0
+    8000124e:	0fe78793          	addi	a5,a5,254 # 80001348 <_init+0x56>
+    80001252:	639c                	ld	a5,0(a5)
+    80001254:	8fd9                	or	a5,a5,a4
+  asm volatile(
+    80001256:	80079073          	csrw	0x800,a5
+
+Disassembly of section .text.access_time:
+
+000000008000125a <access_time>:
+  );
+
+  __builtin_unreachable();
+}
+
+uint64_t access_time(uint8_t* base, int index, int offset) {
+    8000125a:	715d                	addi	sp,sp,-80
+    8000125c:	e4a2                	sd	s0,72(sp)
+    8000125e:	0880                	addi	s0,sp,80
+    80001260:	faa43c23          	sd	a0,-72(s0)
+    80001264:	87ae                	mv	a5,a1
+    80001266:	8732                	mv	a4,a2
+    80001268:	faf42a23          	sw	a5,-76(s0)
+    8000126c:	87ba                	mv	a5,a4
+    8000126e:	faf42823          	sw	a5,-80(s0)
+  uint64_t time1 = 0, time2;
+    80001272:	fe043423          	sd	zero,-24(s0)
+  uint8_t *addr = base + index*CACHE_BLOCK + offset;
+    80001276:	fb442783          	lw	a5,-76(s0)
+    8000127a:	0067979b          	slliw	a5,a5,0x6
+    8000127e:	2781                	sext.w	a5,a5
+    80001280:	873e                	mv	a4,a5
+    80001282:	fb042783          	lw	a5,-80(s0)
+    80001286:	97ba                	add	a5,a5,a4
+    80001288:	fb843703          	ld	a4,-72(s0)
+    8000128c:	97ba                	add	a5,a5,a4
+    8000128e:	fef43023          	sd	a5,-32(s0)
+  int junk = 0;
+    80001292:	fc042e23          	sw	zero,-36(s0)
+  time1 = read_csr(mcycle);
+    80001296:	b00027f3          	csrr	a5,mcycle
+    8000129a:	fcf43823          	sd	a5,-48(s0)
+    8000129e:	fd043783          	ld	a5,-48(s0)
+    800012a2:	fef43423          	sd	a5,-24(s0)
+  junk = *(addr);
+    800012a6:	fe043783          	ld	a5,-32(s0)
+    800012aa:	0007c783          	lbu	a5,0(a5)
+    800012ae:	fcf42e23          	sw	a5,-36(s0)
+  time2 = read_csr(mcycle);
+    800012b2:	b00027f3          	csrr	a5,mcycle
+    800012b6:	fcf43423          	sd	a5,-56(s0)
+    800012ba:	fc843783          	ld	a5,-56(s0)
+    800012be:	fcf43023          	sd	a5,-64(s0)
+  //   "[*] Access time for array[%4d*%4d~%4d]@%p=%ld, takes %ld CPU cycles\n", 
+  //     index, CACHE_BLOCK, offset,
+  //     addr, junk, 
+  //     time2-time1);
+
+  return time2-time1;
+    800012c2:	fc043703          	ld	a4,-64(s0)
+    800012c6:	fe843783          	ld	a5,-24(s0)
+    800012ca:	40f707b3          	sub	a5,a4,a5
+}
+    800012ce:	853e                	mv	a0,a5
+    800012d0:	6426                	ld	s0,72(sp)
+    800012d2:	6161                	addi	sp,sp,80
+    800012d4:	8082                	ret
+
+Disassembly of section .text.handle_trap:
+
+00000000800012d6 <handle_trap>:
+  while (s[i])
+    putchar(s[i++]);
+}
+
+uintptr_t __attribute__((weak)) handle_trap(uintptr_t cause, uintptr_t epc, uintptr_t regs[32])
+{
+    800012d6:	7179                	addi	sp,sp,-48
+    800012d8:	f406                	sd	ra,40(sp)
+    800012da:	f022                	sd	s0,32(sp)
+    800012dc:	1800                	addi	s0,sp,48
+    800012de:	fea43423          	sd	a0,-24(s0)
+    800012e2:	feb43023          	sd	a1,-32(s0)
+    800012e6:	fcc43c23          	sd	a2,-40(s0)
+  exit(1337);
+    800012ea:	53900513          	li	a0,1337
+    800012ee:	f4dff0ef          	jal	ra,8000123a <exit>
+
+Disassembly of section .text._init:
+
+00000000800012f2 <_init>:
+  printstr("Implement main(), foo!\n");
+  return -1;
+}
+
+void _init(int cid, int nc)
+{
+    800012f2:	7179                	addi	sp,sp,-48
+    800012f4:	f406                	sd	ra,40(sp)
+    800012f6:	f022                	sd	s0,32(sp)
+    800012f8:	1800                	addi	s0,sp,48
+    800012fa:	87aa                	mv	a5,a0
+    800012fc:	872e                	mv	a4,a1
+    800012fe:	fcf42e23          	sw	a5,-36(s0)
+    80001302:	87ba                	mv	a5,a4
+    80001304:	fcf42c23          	sw	a5,-40(s0)
+
+  int ret = main(0, 0);
+    80001308:	4581                	li	a1,0
+    8000130a:	4501                	li	a0,0
+    8000130c:	dd5ff0ef          	jal	ra,800010e0 <main>
+    80001310:	87aa                	mv	a5,a0
+    80001312:	fef42623          	sw	a5,-20(s0)
+
+  exit(ret);
+    80001316:	fec42783          	lw	a5,-20(s0)
+    8000131a:	853e                	mv	a0,a5
+    8000131c:	f1fff0ef          	jal	ra,8000123a <exit>
+
+Disassembly of section .rodata:
+
+0000000080001320 <.rodata>:
+    80001320:	ef89                	bnez	a5,8000133a <_init+0x48>
+    80001322:	963a                	add	a2,a2,a4
+    80001324:	a234b057          	vsrl.vi	v0,v3,9
+    80001328:	0136                	slli	sp,sp,0xd
+    8000132a:	a3467def          	jal	s11,7ff6855e <_start-0x97aa2>
+    8000132e:	56fe                	lw	a3,252(sp)
+    80001330:	0001                	nop
+    80001332:	883a                	mv	a6,a4
+    80001334:	608e                	ld	ra,192(sp)
+    80001336:	0003af1b          	.4byte	0x3af1b
+    8000133a:	883a                	mv	a6,a4
+    8000133c:	608e                	ld	ra,192(sp)
+    8000133e:	0002af1b          	.4byte	0x2af1b
+    80001342:	883a                	mv	a6,a4
+    80001344:	608e                	ld	ra,192(sp)
+    80001346:	0000af1b          	.4byte	0xaf1b
+    8000134a:	608e883b          	.4byte	0x608e883b
+    8000134e:	1b af             	Address 0x000000008000134e is out of bounds.
+
+
+Disassembly of section .sdata:
+
+0000000080001350 <state_ptr>:
+volatile uint64_t *state_ptr = (uint64_t *)0x4000;
+    80001350:	4000                	lw	s0,0(s0)
+    80001352:	0000                	unimp
+    80001354:	0000                	unimp
+    80001356:	0000                	unimp
+
+0000000080001358 <reset_ptr>:
+volatile uint64_t *reset_ptr = (uint64_t *)0x4008;
+    80001358:	4008                	lw	a0,0(s0)
+    8000135a:	0000                	unimp
+    8000135c:	0000                	unimp
+    8000135e:	0000                	unimp
+
+Disassembly of section .sbss:
+
+0000000080001360 <guess>:
+PARAFUZZ_DEFINE;
+    80001360:	0000                	unimp
+    80001362:	0000                	unimp
+    80001364:	0000                	unimp
+    80001366:	0000                	unimp
+
+0000000080001368 <current_round>:
+uint64_t current_round = 0;
+    80001368:	0000                	unimp
+    8000136a:	0000                	unimp
+    8000136c:	0000                	unimp
+    8000136e:	0000                	unimp
+
+Disassembly of section .parafuzz_channel:
+
+0000000080005000 <array>:
+    80005000:	1e1e                	slli	t3,t3,0x27
+    80005002:	1e1e                	slli	t3,t3,0x27
+    80005004:	1e1e                	slli	t3,t3,0x27
+    80005006:	1e1e                	slli	t3,t3,0x27
+    80005008:	1e1e                	slli	t3,t3,0x27
+    8000500a:	1e1e                	slli	t3,t3,0x27
+    8000500c:	1e1e                	slli	t3,t3,0x27
+    8000500e:	1e1e                	slli	t3,t3,0x27
+    80005010:	1e1e                	slli	t3,t3,0x27
+    80005012:	1e1e                	slli	t3,t3,0x27
+    80005014:	1e1e                	slli	t3,t3,0x27
+    80005016:	1e1e                	slli	t3,t3,0x27
+    80005018:	1e1e                	slli	t3,t3,0x27
+    8000501a:	1e1e                	slli	t3,t3,0x27
+    8000501c:	1e1e                	slli	t3,t3,0x27
+    8000501e:	1e1e                	slli	t3,t3,0x27
+    80005020:	1e1e                	slli	t3,t3,0x27
+    80005022:	1e1e                	slli	t3,t3,0x27
+    80005024:	1e1e                	slli	t3,t3,0x27
+    80005026:	1e1e                	slli	t3,t3,0x27
+    80005028:	1e1e                	slli	t3,t3,0x27
+    8000502a:	1e1e                	slli	t3,t3,0x27
+    8000502c:	1e1e                	slli	t3,t3,0x27
+    8000502e:	1e1e                	slli	t3,t3,0x27
+    80005030:	1e1e                	slli	t3,t3,0x27
+    80005032:	1e1e                	slli	t3,t3,0x27
+    80005034:	1e1e                	slli	t3,t3,0x27
+    80005036:	1e1e                	slli	t3,t3,0x27
+    80005038:	1e1e                	slli	t3,t3,0x27
+    8000503a:	1e1e                	slli	t3,t3,0x27
+    8000503c:	1e1e                	slli	t3,t3,0x27
+    8000503e:	1e1e                	slli	t3,t3,0x27
+    80005040:	1e1e                	slli	t3,t3,0x27
+    80005042:	1e1e                	slli	t3,t3,0x27
+    80005044:	1e1e                	slli	t3,t3,0x27
+    80005046:	1e1e                	slli	t3,t3,0x27
+    80005048:	1e1e                	slli	t3,t3,0x27
+    8000504a:	1e1e                	slli	t3,t3,0x27
+    8000504c:	1e1e                	slli	t3,t3,0x27
+    8000504e:	1e1e                	slli	t3,t3,0x27
+    80005050:	1e1e                	slli	t3,t3,0x27
+    80005052:	1e1e                	slli	t3,t3,0x27
+    80005054:	1e1e                	slli	t3,t3,0x27
+    80005056:	1e1e                	slli	t3,t3,0x27
+    80005058:	1e1e                	slli	t3,t3,0x27
+    8000505a:	1e1e                	slli	t3,t3,0x27
+    8000505c:	1e1e                	slli	t3,t3,0x27
+    8000505e:	1e1e                	slli	t3,t3,0x27
+    80005060:	1e1e                	slli	t3,t3,0x27
+    80005062:	1e1e                	slli	t3,t3,0x27
+    80005064:	1e1e                	slli	t3,t3,0x27
+    80005066:	1e1e                	slli	t3,t3,0x27
+    80005068:	1e1e                	slli	t3,t3,0x27
+    8000506a:	1e1e                	slli	t3,t3,0x27
+    8000506c:	1e1e                	slli	t3,t3,0x27
+    8000506e:	1e1e                	slli	t3,t3,0x27
+    80005070:	1e1e                	slli	t3,t3,0x27
+    80005072:	1e1e                	slli	t3,t3,0x27
+    80005074:	1e1e                	slli	t3,t3,0x27
+    80005076:	1e1e                	slli	t3,t3,0x27
+    80005078:	1e1e                	slli	t3,t3,0x27
+    8000507a:	1e1e                	slli	t3,t3,0x27
+    8000507c:	1e1e                	slli	t3,t3,0x27
+    8000507e:	1e1e                	slli	t3,t3,0x27
+    80005080:	1e1e                	slli	t3,t3,0x27
+    80005082:	1e1e                	slli	t3,t3,0x27
+    80005084:	1e1e                	slli	t3,t3,0x27
+    80005086:	1e1e                	slli	t3,t3,0x27
+    80005088:	1e1e                	slli	t3,t3,0x27
+    8000508a:	1e1e                	slli	t3,t3,0x27
+    8000508c:	1e1e                	slli	t3,t3,0x27
+    8000508e:	1e1e                	slli	t3,t3,0x27
+    80005090:	1e1e                	slli	t3,t3,0x27
+    80005092:	1e1e                	slli	t3,t3,0x27
+    80005094:	1e1e                	slli	t3,t3,0x27
+    80005096:	1e1e                	slli	t3,t3,0x27
+    80005098:	1e1e                	slli	t3,t3,0x27
+    8000509a:	1e1e                	slli	t3,t3,0x27
+    8000509c:	1e1e                	slli	t3,t3,0x27
+    8000509e:	1e1e                	slli	t3,t3,0x27
+    800050a0:	1e1e                	slli	t3,t3,0x27
+    800050a2:	1e1e                	slli	t3,t3,0x27
+    800050a4:	1e1e                	slli	t3,t3,0x27
+    800050a6:	1e1e                	slli	t3,t3,0x27
+    800050a8:	1e1e                	slli	t3,t3,0x27
+    800050aa:	1e1e                	slli	t3,t3,0x27
+    800050ac:	1e1e                	slli	t3,t3,0x27
+    800050ae:	1e1e                	slli	t3,t3,0x27
+    800050b0:	1e1e                	slli	t3,t3,0x27
+    800050b2:	1e1e                	slli	t3,t3,0x27
+    800050b4:	1e1e                	slli	t3,t3,0x27
+    800050b6:	1e1e                	slli	t3,t3,0x27
+    800050b8:	1e1e                	slli	t3,t3,0x27
+    800050ba:	1e1e                	slli	t3,t3,0x27
+    800050bc:	1e1e                	slli	t3,t3,0x27
+    800050be:	1e1e                	slli	t3,t3,0x27
+    800050c0:	1e1e                	slli	t3,t3,0x27
+    800050c2:	1e1e                	slli	t3,t3,0x27
+    800050c4:	1e1e                	slli	t3,t3,0x27
+    800050c6:	1e1e                	slli	t3,t3,0x27
+    800050c8:	1e1e                	slli	t3,t3,0x27
+    800050ca:	1e1e                	slli	t3,t3,0x27
+    800050cc:	1e1e                	slli	t3,t3,0x27
+    800050ce:	1e1e                	slli	t3,t3,0x27
+    800050d0:	1e1e                	slli	t3,t3,0x27
+    800050d2:	1e1e                	slli	t3,t3,0x27
+    800050d4:	1e1e                	slli	t3,t3,0x27
+    800050d6:	1e1e                	slli	t3,t3,0x27
+    800050d8:	1e1e                	slli	t3,t3,0x27
+    800050da:	1e1e                	slli	t3,t3,0x27
+    800050dc:	1e1e                	slli	t3,t3,0x27
+    800050de:	1e1e                	slli	t3,t3,0x27
+    800050e0:	1e1e                	slli	t3,t3,0x27
+    800050e2:	1e1e                	slli	t3,t3,0x27
+    800050e4:	1e1e                	slli	t3,t3,0x27
+    800050e6:	1e1e                	slli	t3,t3,0x27
+    800050e8:	1e1e                	slli	t3,t3,0x27
+    800050ea:	1e1e                	slli	t3,t3,0x27
+    800050ec:	1e1e                	slli	t3,t3,0x27
+    800050ee:	1e1e                	slli	t3,t3,0x27
+    800050f0:	1e1e                	slli	t3,t3,0x27
+    800050f2:	1e1e                	slli	t3,t3,0x27
+    800050f4:	1e1e                	slli	t3,t3,0x27
+    800050f6:	1e1e                	slli	t3,t3,0x27
+    800050f8:	1e1e                	slli	t3,t3,0x27
+    800050fa:	1e1e                	slli	t3,t3,0x27
+    800050fc:	1e1e                	slli	t3,t3,0x27
+    800050fe:	1e1e                	slli	t3,t3,0x27
+    80005100:	1e1e                	slli	t3,t3,0x27
+    80005102:	1e1e                	slli	t3,t3,0x27
+    80005104:	1e1e                	slli	t3,t3,0x27
+    80005106:	1e1e                	slli	t3,t3,0x27
+    80005108:	1e1e                	slli	t3,t3,0x27
+    8000510a:	1e1e                	slli	t3,t3,0x27
+    8000510c:	1e1e                	slli	t3,t3,0x27
+    8000510e:	1e1e                	slli	t3,t3,0x27
+    80005110:	1e1e                	slli	t3,t3,0x27
+    80005112:	1e1e                	slli	t3,t3,0x27
+    80005114:	1e1e                	slli	t3,t3,0x27
+    80005116:	1e1e                	slli	t3,t3,0x27
+    80005118:	1e1e                	slli	t3,t3,0x27
+    8000511a:	1e1e                	slli	t3,t3,0x27
+    8000511c:	1e1e                	slli	t3,t3,0x27
+    8000511e:	1e1e                	slli	t3,t3,0x27
+    80005120:	1e1e                	slli	t3,t3,0x27
+    80005122:	1e1e                	slli	t3,t3,0x27
+    80005124:	1e1e                	slli	t3,t3,0x27
+    80005126:	1e1e                	slli	t3,t3,0x27
+    80005128:	1e1e                	slli	t3,t3,0x27
+    8000512a:	1e1e                	slli	t3,t3,0x27
+    8000512c:	1e1e                	slli	t3,t3,0x27
+    8000512e:	1e1e                	slli	t3,t3,0x27
+    80005130:	1e1e                	slli	t3,t3,0x27
+    80005132:	1e1e                	slli	t3,t3,0x27
+    80005134:	1e1e                	slli	t3,t3,0x27
+    80005136:	1e1e                	slli	t3,t3,0x27
+    80005138:	1e1e                	slli	t3,t3,0x27
+    8000513a:	1e1e                	slli	t3,t3,0x27
+    8000513c:	1e1e                	slli	t3,t3,0x27
+    8000513e:	1e1e                	slli	t3,t3,0x27
+    80005140:	1e1e                	slli	t3,t3,0x27
+    80005142:	1e1e                	slli	t3,t3,0x27
+    80005144:	1e1e                	slli	t3,t3,0x27
+    80005146:	1e1e                	slli	t3,t3,0x27
+    80005148:	1e1e                	slli	t3,t3,0x27
+    8000514a:	1e1e                	slli	t3,t3,0x27
+    8000514c:	1e1e                	slli	t3,t3,0x27
+    8000514e:	1e1e                	slli	t3,t3,0x27
+    80005150:	1e1e                	slli	t3,t3,0x27
+    80005152:	1e1e                	slli	t3,t3,0x27
+    80005154:	1e1e                	slli	t3,t3,0x27
+    80005156:	1e1e                	slli	t3,t3,0x27
+    80005158:	1e1e                	slli	t3,t3,0x27
+    8000515a:	1e1e                	slli	t3,t3,0x27
+    8000515c:	1e1e                	slli	t3,t3,0x27
+    8000515e:	1e1e                	slli	t3,t3,0x27
+    80005160:	1e1e                	slli	t3,t3,0x27
+    80005162:	1e1e                	slli	t3,t3,0x27
+    80005164:	1e1e                	slli	t3,t3,0x27
+    80005166:	1e1e                	slli	t3,t3,0x27
+    80005168:	1e1e                	slli	t3,t3,0x27
+    8000516a:	1e1e                	slli	t3,t3,0x27
+    8000516c:	1e1e                	slli	t3,t3,0x27
+    8000516e:	1e1e                	slli	t3,t3,0x27
+    80005170:	1e1e                	slli	t3,t3,0x27
+    80005172:	1e1e                	slli	t3,t3,0x27
+    80005174:	1e1e                	slli	t3,t3,0x27
+    80005176:	1e1e                	slli	t3,t3,0x27
+    80005178:	1e1e                	slli	t3,t3,0x27
+    8000517a:	1e1e                	slli	t3,t3,0x27
+    8000517c:	1e1e                	slli	t3,t3,0x27
+    8000517e:	1e1e                	slli	t3,t3,0x27
+    80005180:	1e1e                	slli	t3,t3,0x27
+    80005182:	1e1e                	slli	t3,t3,0x27
+    80005184:	1e1e                	slli	t3,t3,0x27
+    80005186:	1e1e                	slli	t3,t3,0x27
+    80005188:	1e1e                	slli	t3,t3,0x27
+    8000518a:	1e1e                	slli	t3,t3,0x27
+    8000518c:	1e1e                	slli	t3,t3,0x27
+    8000518e:	1e1e                	slli	t3,t3,0x27
+    80005190:	1e1e                	slli	t3,t3,0x27
+    80005192:	1e1e                	slli	t3,t3,0x27
+    80005194:	1e1e                	slli	t3,t3,0x27
+    80005196:	1e1e                	slli	t3,t3,0x27
+    80005198:	1e1e                	slli	t3,t3,0x27
+    8000519a:	1e1e                	slli	t3,t3,0x27
+    8000519c:	1e1e                	slli	t3,t3,0x27
+    8000519e:	1e1e                	slli	t3,t3,0x27
+    800051a0:	1e1e                	slli	t3,t3,0x27
+    800051a2:	1e1e                	slli	t3,t3,0x27
+    800051a4:	1e1e                	slli	t3,t3,0x27
+    800051a6:	1e1e                	slli	t3,t3,0x27
+    800051a8:	1e1e                	slli	t3,t3,0x27
+    800051aa:	1e1e                	slli	t3,t3,0x27
+    800051ac:	1e1e                	slli	t3,t3,0x27
+    800051ae:	1e1e                	slli	t3,t3,0x27
+    800051b0:	1e1e                	slli	t3,t3,0x27
+    800051b2:	1e1e                	slli	t3,t3,0x27
+    800051b4:	1e1e                	slli	t3,t3,0x27
+    800051b6:	1e1e                	slli	t3,t3,0x27
+    800051b8:	1e1e                	slli	t3,t3,0x27
+    800051ba:	1e1e                	slli	t3,t3,0x27
+    800051bc:	1e1e                	slli	t3,t3,0x27
+    800051be:	1e1e                	slli	t3,t3,0x27
+    800051c0:	1e1e                	slli	t3,t3,0x27
+    800051c2:	1e1e                	slli	t3,t3,0x27
+    800051c4:	1e1e                	slli	t3,t3,0x27
+    800051c6:	1e1e                	slli	t3,t3,0x27
+    800051c8:	1e1e                	slli	t3,t3,0x27
+    800051ca:	1e1e                	slli	t3,t3,0x27
+    800051cc:	1e1e                	slli	t3,t3,0x27
+    800051ce:	1e1e                	slli	t3,t3,0x27
+    800051d0:	1e1e                	slli	t3,t3,0x27
+    800051d2:	1e1e                	slli	t3,t3,0x27
+    800051d4:	1e1e                	slli	t3,t3,0x27
+    800051d6:	1e1e                	slli	t3,t3,0x27
+    800051d8:	1e1e                	slli	t3,t3,0x27
+    800051da:	1e1e                	slli	t3,t3,0x27
+    800051dc:	1e1e                	slli	t3,t3,0x27
+    800051de:	1e1e                	slli	t3,t3,0x27
+    800051e0:	1e1e                	slli	t3,t3,0x27
+    800051e2:	1e1e                	slli	t3,t3,0x27
+    800051e4:	1e1e                	slli	t3,t3,0x27
+    800051e6:	1e1e                	slli	t3,t3,0x27
+    800051e8:	1e1e                	slli	t3,t3,0x27
+    800051ea:	1e1e                	slli	t3,t3,0x27
+    800051ec:	1e1e                	slli	t3,t3,0x27
+    800051ee:	1e1e                	slli	t3,t3,0x27
+    800051f0:	1e1e                	slli	t3,t3,0x27
+    800051f2:	1e1e                	slli	t3,t3,0x27
+    800051f4:	1e1e                	slli	t3,t3,0x27
+    800051f6:	1e1e                	slli	t3,t3,0x27
+    800051f8:	1e1e                	slli	t3,t3,0x27
+    800051fa:	1e1e                	slli	t3,t3,0x27
+    800051fc:	1e1e                	slli	t3,t3,0x27
+    800051fe:	1e1e                	slli	t3,t3,0x27
+    80005200:	1e1e                	slli	t3,t3,0x27
+    80005202:	1e1e                	slli	t3,t3,0x27
+    80005204:	1e1e                	slli	t3,t3,0x27
+    80005206:	1e1e                	slli	t3,t3,0x27
+    80005208:	1e1e                	slli	t3,t3,0x27
+    8000520a:	1e1e                	slli	t3,t3,0x27
+    8000520c:	1e1e                	slli	t3,t3,0x27
+    8000520e:	1e1e                	slli	t3,t3,0x27
+    80005210:	1e1e                	slli	t3,t3,0x27
+    80005212:	1e1e                	slli	t3,t3,0x27
+    80005214:	1e1e                	slli	t3,t3,0x27
+    80005216:	1e1e                	slli	t3,t3,0x27
+    80005218:	1e1e                	slli	t3,t3,0x27
+    8000521a:	1e1e                	slli	t3,t3,0x27
+    8000521c:	1e1e                	slli	t3,t3,0x27
+    8000521e:	1e1e                	slli	t3,t3,0x27
+    80005220:	1e1e                	slli	t3,t3,0x27
+    80005222:	1e1e                	slli	t3,t3,0x27
+    80005224:	1e1e                	slli	t3,t3,0x27
+    80005226:	1e1e                	slli	t3,t3,0x27
+    80005228:	1e1e                	slli	t3,t3,0x27
+    8000522a:	1e1e                	slli	t3,t3,0x27
+    8000522c:	1e1e                	slli	t3,t3,0x27
+    8000522e:	1e1e                	slli	t3,t3,0x27
+    80005230:	1e1e                	slli	t3,t3,0x27
+    80005232:	1e1e                	slli	t3,t3,0x27
+    80005234:	1e1e                	slli	t3,t3,0x27
+    80005236:	1e1e                	slli	t3,t3,0x27
+    80005238:	1e1e                	slli	t3,t3,0x27
+    8000523a:	1e1e                	slli	t3,t3,0x27
+    8000523c:	1e1e                	slli	t3,t3,0x27
+    8000523e:	1e1e                	slli	t3,t3,0x27
+    80005240:	1e1e                	slli	t3,t3,0x27
+    80005242:	1e1e                	slli	t3,t3,0x27
+    80005244:	1e1e                	slli	t3,t3,0x27
+    80005246:	1e1e                	slli	t3,t3,0x27
+    80005248:	1e1e                	slli	t3,t3,0x27
+    8000524a:	1e1e                	slli	t3,t3,0x27
+    8000524c:	1e1e                	slli	t3,t3,0x27
+    8000524e:	1e1e                	slli	t3,t3,0x27
+    80005250:	1e1e                	slli	t3,t3,0x27
+    80005252:	1e1e                	slli	t3,t3,0x27
+    80005254:	1e1e                	slli	t3,t3,0x27
+    80005256:	1e1e                	slli	t3,t3,0x27
+    80005258:	1e1e                	slli	t3,t3,0x27
+    8000525a:	1e1e                	slli	t3,t3,0x27
+    8000525c:	1e1e                	slli	t3,t3,0x27
+    8000525e:	1e1e                	slli	t3,t3,0x27
+    80005260:	1e1e                	slli	t3,t3,0x27
+    80005262:	1e1e                	slli	t3,t3,0x27
+    80005264:	1e1e                	slli	t3,t3,0x27
+    80005266:	1e1e                	slli	t3,t3,0x27
+    80005268:	1e1e                	slli	t3,t3,0x27
+    8000526a:	1e1e                	slli	t3,t3,0x27
+    8000526c:	1e1e                	slli	t3,t3,0x27
+    8000526e:	1e1e                	slli	t3,t3,0x27
+    80005270:	1e1e                	slli	t3,t3,0x27
+    80005272:	1e1e                	slli	t3,t3,0x27
+    80005274:	1e1e                	slli	t3,t3,0x27
+    80005276:	1e1e                	slli	t3,t3,0x27
+    80005278:	1e1e                	slli	t3,t3,0x27
+    8000527a:	1e1e                	slli	t3,t3,0x27
+    8000527c:	1e1e                	slli	t3,t3,0x27
+    8000527e:	1e1e                	slli	t3,t3,0x27
+
+Disassembly of section .parafuzz_secret:
+
+0000000080004000 <secret>:
+    80004000:	6564                	ld	s1,200(a0)
+    80004002:	6461                	lui	s0,0x18
+    80004004:	6562                	ld	a0,24(sp)
+    80004006:	6665                	lui	a2,0x19
+    80004008:	6920                	ld	s0,80(a0)
+    8000400a:	20612073          	csrs	0x206,sp
+    8000400e:	616d                	addi	sp,sp,240
+    80004010:	20636967          	.4byte	0x20636967
+    80004014:	756e                	ld	a0,248(sp)
+    80004016:	626d                	lui	tp,0x1b
+    80004018:	7265                	lui	tp,0xffff9
+    8000401a:	7420                	ld	s0,104(s0)
+    8000401c:	6168                	ld	a0,192(a0)
+    8000401e:	2074                	fld	fa3,192(s0)
+    80004020:	7375                	lui	t1,0xffffd
+    80004022:	6465                	lui	s0,0x19
+    80004024:	6220                	ld	s0,64(a2)
+    80004026:	2079                	.2byte	0x2079
+    80004028:	7270                	ld	a2,224(a2)
+    8000402a:	7261                	lui	tp,0xffff8
+    8000402c:	6661                	lui	a2,0x18
+    8000402e:	7a75                	lui	s4,0xffffd
+    80004030:	207a                	fld	ft0,408(sp)
+    80004032:	6f74                	ld	a3,216(a4)
+    80004034:	6420                	ld	s0,72(s0)
+    80004036:	7369                	lui	t1,0xffffa
+    80004038:	736f6c63          	bltu	t5,s6,80004770 <_parafuzz_secret_end+0x6fb>
+    8000403c:	2065                	.2byte	0x2065
+    8000403e:	7274                	ld	a3,224(a2)
+    80004040:	6e61                	lui	t3,0x18
+    80004042:	6e656973          	csrrsi	s2,0x6e6,10
+    80004046:	2074                	fld	fa3,192(s0)
+    80004048:	7865                	lui	a6,0xffff9
+    8000404a:	6365                	lui	t1,0x19
+    8000404c:	7475                	lui	s0,0xffffd
+    8000404e:	6f69                	lui	t5,0x1a
+    80004050:	206e                	fld	ft0,216(sp)
+    80004052:	7576                	ld	a0,376(sp)
+    80004054:	6e6c                	ld	a1,216(a2)
+    80004056:	7265                	lui	tp,0xffff9
+    80004058:	6261                	lui	tp,0x18
+    8000405a:	6c69                	lui	s8,0x1a
+    8000405c:	7469                	lui	s0,0xffffa
+    8000405e:	2079                	.2byte	0x2079
+    80004060:	6e69                	lui	t3,0x1a
+    80004062:	7420                	ld	s0,104(s0)
+    80004064:	6568                	ld	a0,200(a0)
+    80004066:	7020                	ld	s0,96(s0)
+    80004068:	6f72                	ld	t5,280(sp)
+    8000406a:	73736563          	bltu	t1,s7,80004794 <_parafuzz_secret_end+0x71f>
+    8000406e:	202e726f          	jal	tp,800eb270 <_end+0xe5ff0>
+    80004072:	503a                	.2byte	0x503a
+    80004074:	00              	Address 0x0000000080004074 is out of bounds.
+

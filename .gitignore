@@ -20,6 +20,10 @@ log*
 *.log
 *log.txt
 
+# Jaspergold
+jgproject*
+
+
 # Verdi
 novas.*
 *fsdb*Log/

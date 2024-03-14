@@ -208,7 +208,7 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
         always @(negedge pos_clk) begin
             if (!mergerd & (Testbench.smon.vnt_done | Testbench.smon.dut_done)) begin
                 query_taint = xref_merge_dff_taint(ref_id);
-                register_taint = {WIDTH{query_taint}};
+                register_taint <= {WIDTH{query_taint}};
                 mergerd = 1;
             end
         end

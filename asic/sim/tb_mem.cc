@@ -99,7 +99,7 @@ struct TBConfig {
                         exit(EXIT_FAILURE);
                     }
 
-                    if (new_region.type == "vnt" || new_region.type == "both") {
+                    if (new_region.type == "vnt" || new_region.type == "duo") {
                         has_variant = true;
                     }
 
@@ -190,7 +190,7 @@ extern "C" void testbench_memory_initial(const char *input_file, unsigned long i
         else if (mem_region.type == "vnt") {
             mem_pool[VNT_MEM].register_normal_blocks(mem_region.start_addr, mem_region.max_len, mem_region.init_file);
         }
-        else if (mem_region.type == "both") {
+        else if (mem_region.type == "duo") {
             mem_pool[DUT_MEM].register_normal_blocks(mem_region.start_addr, mem_region.max_len, mem_region.init_file);
             mem_pool[VNT_MEM].register_normal_blocks(mem_region.start_addr, mem_region.max_len, mem_region.init_file);
         }

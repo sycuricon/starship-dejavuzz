@@ -345,7 +345,7 @@ vcs-dummy: $(VCS_TARGET)
 vcs: $(VCS_TARGET)
 	mkdir -p $(VCS_LOG) $(VCS_WAVE)
 	cd $(VCS_OUTPUT); time \
-	$(VCS_TARGET) -quiet +ntb_random_seed_automatic -no_save -l $(VCS_LOG)/sim.log  \
+	$(VCS_TARGET) -quiet +vcs+lic+wait +ntb_random_seed_automatic -no_save -l $(VCS_LOG)/sim.log  \
 		$(VCS_SIM_OPTION) $(EXTRA_SIM_ARGS) 2>&1 | tee /tmp/rocket.log; exit "$${PIPESTATUS[0]}";
 
 vcs-wave vcs-debug: vcs

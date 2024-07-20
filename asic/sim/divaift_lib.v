@@ -232,7 +232,7 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
     output [WIDTH-1:0] Q_taint;
     input [LIVENESS_SIZE-1:0] LIVENESS_OP0, LIVENESS_OP1, LIVENESS_OP2;
     output taint_sum;
-    output [COVERAGE_WIDTH-1:0] taint_hash;
+    output reg [COVERAGE_WIDTH-1:0] taint_hash;
 
     wire pos_clk = CLK == CLK_POLARITY;
     wire pos_srst = SRST == SRST_POLARITY;
@@ -245,7 +245,11 @@ module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_tain
     reg [WIDTH-1:0] register_taint = 0;
     assign Q_taint = register_taint;
     assign taint_sum = |register_taint;
-    assign taint_hash = register_taint ? COVERAGE_ID : 0;
+    // assign taint_hash = register_taint ? COVERAGE_ID : 0;
+    initial taint_hash = 0;
+    always @ (register_taint) begin
+        taint_hash = COVERAGE_ID;
+    end
 
     int unsigned ref_id = 0;
     initial begin

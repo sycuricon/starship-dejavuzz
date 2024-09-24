@@ -14,8 +14,6 @@
 `define IS_VNT 0
 
 `define EARLY_EXIT_PC 64'h80600000
-`define MTVEC_EXIT_PC 64'h80000020
-`define STVEC_EXIT_PC 64'h80000060
 
 reg [63:0] last_pc = 0;
 reg maybe_deadlock = 0;
@@ -29,9 +27,20 @@ wire can_early_exit;
 assign can_early_exit = 
   (`DUT_ROB_ENQ_PC_0 == `EARLY_EXIT_PC)
   & early_exit;
-assign tvec_exit = (`DUT_ROB_ENQ_PC_0 == `MTVEC_EXIT_PC)|
-  (`DUT_ROB_ENQ_PC_0 == `STVEC_EXIT_PC);
 reg [6:0] exit_count = 0;
+
+
+reg [63:0] spdoc_addr;
+initial begin
+  void'($value$plusargs("spdoc_addr=%d", spdoc_addr));
+end
+
+wire tsx_finish;
+assign tsx_finish = 
+Testbench.testHarness.ldut.tile_prci_domain.tile_reset_domain_boom_tile.dcache.io_lsu_req_bits_0_valid && 
+Testbench.testHarness.ldut.tile_prci_domain.tile_reset_domain_boom_tile.dcache.io_lsu_req_bits_0_bits_addr == spdoc_addr && 
+Testbench.testHarness.ldut.tile_prci_domain.tile_reset_domain_boom_tile.dcache.io_lsu_req_bits_0_bits_data == 1 && 
+Testbench.testHarness.ldut.tile_prci_domain.tile_reset_domain_boom_tile.dcache.io_lsu_req_bits_0_bits_uop_mem_cmd == 1;
 
 always @(posedge clock) begin
   if (!reset) begin
@@ -54,14 +63,14 @@ always @(posedge clock) begin
       maybe_deadlock <= 0;
     end
 
-    if((can_early_exit | maybe_deadlock | tvec_exit) && tsx_done == 1'b0)begin
+    if((can_early_exit | tsx_finish | maybe_deadlock) && tsx_done == 1'b0)begin
       tsx_done <= 1'b1;
       if(can_early_exit)begin
         $display("early exit");
-      end else if(maybe_deadlock)begin
-        $display("may dead loop");
+      end else if(tsx_finish)begin
+        $display("tsx_finish");
       end else begin
-        $display("tvec exit");
+        $display("maybe dead loop");
       end
     end
 

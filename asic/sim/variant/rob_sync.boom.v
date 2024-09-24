@@ -14,6 +14,8 @@
 `define IS_VNT 0
 
 `define EARLY_EXIT_PC 64'h80600000
+`define MTVEC_EXIT_PC 64'h80000020
+`define STVEC_EXIT_PC 64'h80000060
 
 reg [63:0] last_pc = 0;
 reg maybe_deadlock = 0;
@@ -24,8 +26,12 @@ initial begin
 end
 
 wire can_early_exit;
-assign can_early_exit = (`DUT_ROB_ENQ_PC_0 == `EARLY_EXIT_PC)&early_exit;
-reg [3:0] exit_count = 0;
+assign can_early_exit = 
+  (`DUT_ROB_ENQ_PC_0 == `EARLY_EXIT_PC)
+  & early_exit;
+assign tvec_exit = (`DUT_ROB_ENQ_PC_0 == `MTVEC_EXIT_PC)|
+  (`DUT_ROB_ENQ_PC_0 == `STVEC_EXIT_PC);
+reg [6:0] exit_count = 0;
 
 always @(posedge clock) begin
   if (!reset) begin
@@ -48,20 +54,22 @@ always @(posedge clock) begin
       maybe_deadlock <= 0;
     end
 
-    if((can_early_exit | maybe_deadlock) && tsx_done == 1'b0)begin
+    if((can_early_exit | maybe_deadlock | tvec_exit) && tsx_done == 1'b0)begin
       tsx_done <= 1'b1;
       if(can_early_exit)begin
         $display("early exit");
-      end else begin
+      end else if(maybe_deadlock)begin
         $display("may dead loop");
+      end else begin
+        $display("tvec exit");
       end
     end
 
     if (`DUT_ROB_DEQ_EN_0 && `DUT_ROB_DEQ_PC_0 == last_pc && tsx_done) begin
-      exit_count <= exit_count + 4'b1;
+      exit_count <= exit_count + 7'b1;
     end
 
-    if(exit_count == 4'h15)begin
+    if(exit_count == 7'h127)begin
       $finish;
     end
 

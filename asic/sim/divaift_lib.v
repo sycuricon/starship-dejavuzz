@@ -1023,3 +1023,11 @@ module tainthelp_coverage (COV_HASH);
     end
 
 endmodule
+
+module ff_taint_guard (in, out);
+    parameter WIDTH = 0;
+    input [WIDTH-1:0] in;
+    output out;
+
+    assign out = $isunknown(in) ? 1'b0 : |in;
+endmodule

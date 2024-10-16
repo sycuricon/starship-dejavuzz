@@ -4,11 +4,11 @@ yosys read_verilog -sv build/rocket-chip/BOOM.$::env(YOSYS_TOP).$::env(YOSYS_CON
 
 yosys hierarchy -top $::env(YOSYS_TOP)
 
-yosys tee -o build/rocket-chip/boom_keep.log keep_chisel_signals --verbose
-
 yosys proc
 yosys pmuxtree
 yosys bmuxmap
+yosys memory
+# yosys techmap
 yosys opt -purge
 
 yosys write_verilog -simple-lhs build/rocket-chip/BOOM.$::env(YOSYS_TOP).$::env(YOSYS_CONFIG).top.opt.v

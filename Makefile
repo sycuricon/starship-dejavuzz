@@ -194,10 +194,10 @@ endif
 
 $(YOSYS_TOP_VERILOG_OPT): $(ROCKET_TOP_SRAM) $(ROCKET_ROM) $(ROCKET_TOP_VERILOG)
 	$(YOSYS_SRC)/$(STARSHIP_CORE)_vec_collect.sh
-	yosys -c $(YOSYS_SRC)/$(STARSHIP_CORE)_opt.tcl
+	cellift-yosys -c $(YOSYS_SRC)/$(STARSHIP_CORE)_opt.tcl
 
 $(YOSYS_TOP_VERILOG_IFT): $(YOSYS_TOP_VERILOG_OPT) | $(ROCKET_INCLUDE)
-	yosys -c $(YOSYS_SRC)/$(STARSHIP_CORE)_ift.tcl
+	cellift-yosys -c $(YOSYS_SRC)/$(STARSHIP_CORE)_ift.tcl
 	sed -i "s/.IFT_RULE(\"REPLACE_ME_TO_IFT_RULE\")/.IFT_RULE(IFT_RULE)/g" $(YOSYS_TOP_VERILOG_IFT)
 	sed -i "/module/{:a;N;/);/!ba;s/\(module[^\)]*\));/&\nparameter string IFT_RULE = \"none\";/}" $(YOSYS_TOP_VERILOG_IFT)
 

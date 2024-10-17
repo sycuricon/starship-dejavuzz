@@ -60,7 +60,6 @@ module SyncMonitor (
     if (!reset) begin
       if (!tsx_done)
         tsx_end <= tsx_end << 1;
-        tsx_end_spec <= tsx_end_spec << 1;
     end
   end
 

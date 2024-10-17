@@ -66,6 +66,7 @@ always @(posedge clock) begin
     if((tsx_finish | maybe_deadlock | can_early_exit) && | tsx_end_spec == 1'b0)begin
       tsx_end_spec <= 1;
       if(can_early_exit)begin
+        $finish;
         $display("early exit");
       end else if(tsx_finish)begin
         $display("tsx_finish");

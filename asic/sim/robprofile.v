@@ -52,13 +52,15 @@ module SyncMonitor (
 
   wire tsx_done;
   reg [4:0] tsx_end = 0;
+  reg tsx_end_spec = 0; 
+  assign tsx_done = tsx_end[3]|tsx_end_spec;
 
-  assign tsx_done = tsx_end[3];
 
   always @(posedge clock) begin
     if (!reset) begin
       if (!tsx_done)
         tsx_end <= tsx_end << 1;
+        tsx_end_spec <= tsx_end_spec << 1;
     end
   end
 

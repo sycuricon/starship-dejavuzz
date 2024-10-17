@@ -25,7 +25,7 @@ end
 
 wire can_early_exit;
 assign can_early_exit = 
-  (`DUT_ROB_ENQ_PC_0 == `EARLY_EXIT_PC)
+  (`DUT_ROB_ENQ_PC_0 == `EARLY_EXIT_PC) & `DUT_ROB_ENQ_EN_0
   & early_exit;
 reg [6:0] exit_count = 0;
 
@@ -63,8 +63,8 @@ always @(posedge clock) begin
       maybe_deadlock <= 0;
     end
 
-    if((can_early_exit | tsx_finish | maybe_deadlock) && tsx_done == 1'b0)begin
-      tsx_done <= 1'b1;
+    if((tsx_finish | maybe_deadlock | can_early_exit) && | tsx_end_spec == 1'b0)begin
+      tsx_end_spec <= 1;
       if(can_early_exit)begin
         $display("early exit");
       end else if(tsx_finish)begin
@@ -74,7 +74,7 @@ always @(posedge clock) begin
       end
     end
 
-    if (`DUT_ROB_DEQ_EN_0 && `DUT_ROB_DEQ_PC_0 == last_pc && tsx_done) begin
+    if (`DUT_ROB_DEQ_EN_0 && `DUT_ROB_DEQ_PC_0 == last_pc && tsx_end_spec) begin
       exit_count <= exit_count + 7'b1;
     end
 

@@ -7,6 +7,8 @@ yosys hierarchy -top $::env(YOSYS_TOP)
 yosys proc
 yosys pmuxtree
 yosys bmuxmap
+yosys memory
+yosys techmap
 yosys opt -purge
 
 yosys write_verilog -simple-lhs build/rocket-chip/BOOM.$::env(YOSYS_TOP).$::env(YOSYS_CONFIG).top.opt.v

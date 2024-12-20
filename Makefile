@@ -193,18 +193,18 @@ endif
 
 $(YOSYS_TOP_VERILOG_OPT): $(ROCKET_TOP_SRAM) $(ROCKET_ROM) $(ROCKET_TOP_VERILOG)
 ifeq ($(STARSHIP_CORE),BOOM)
-	yosys -c $(YOSYS_SRC)/boom_opt.tcl
+	cellift-yosys -c $(YOSYS_SRC)/boom_opt.tcl
 else ifeq ($(STARSHIP_CORE),XiangShan)
-	yosys -c $(YOSYS_SRC)/xiangshan_opt.tcl
+	cellift-yosys -c $(YOSYS_SRC)/xiangshan_opt.tcl
 else
 $(error Unsupported core yet!)
 endif
 
 $(YOSYS_TOP_VERILOG_IFT): $(YOSYS_TOP_VERILOG_OPT) | $(ROCKET_INCLUDE)
 ifeq ($(STARSHIP_CORE),BOOM)
-	yosys -c $(YOSYS_SRC)/boom_ift.tcl
+	cellift-yosys -c $(YOSYS_SRC)/boom_ift.tcl
 else ifeq ($(STARSHIP_CORE),XiangShan)
-	yosys -c $(YOSYS_SRC)/xiangshan_ift.tcl
+	cellift-yosys -c $(YOSYS_SRC)/xiangshan_ift.tcl
 endif
 
 verilog-instrument: $(YOSYS_TOP_VERILOG_OPT)

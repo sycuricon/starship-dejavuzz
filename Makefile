@@ -82,7 +82,7 @@ $(ROCKET_FIRRTL) $(ROCKET_DTS) $(ROCKET_ROMCONF) $(ROCKET_ANNO)&: $(ROCKET_SRCS)
 		--name $(ROCKET_OUTPUT)"
 	touch $(ROCKET_ROMCONF)
 
-$(ROCKET_TOP_VERILOG) $(ROCKET_TOP_INCLUDE) $(ROCKET_TOP_MEMCONF) $(ROCKET_TH_VERILOG) $(ROCKET_TH_INCLUDE) $(ROCKET_TH_MEMCONF)&: $(ROCKET_FIRRTL)
+$(ROCKET_TOP_VERILOG) $(ROCKET_TOP_INCLUDE) $(ROCKET_TOP_MEMCONF) $(ROCKET_TH_VERILOG) $(ROCKET_TH_INCLUDE) $(ROCKET_TH_MEMCONF) &: $(ROCKET_FIRRTL)
 	mkdir -p $(ROCKET_BUILD)
 	sbt "runMain starship.utils.stage.RTLGenerator \
 		--infer-rw $(STARSHIP_TOP) \
@@ -193,18 +193,18 @@ endif
 
 $(YOSYS_TOP_VERILOG_OPT): $(ROCKET_TOP_SRAM) $(ROCKET_ROM) $(ROCKET_TOP_VERILOG)
 ifeq ($(STARSHIP_CORE),BOOM)
-	cellift-yosys -c $(YOSYS_SRC)/boom_opt.tcl
+	celliftyosys -c $(YOSYS_SRC)/boom_opt.tcl
 else ifeq ($(STARSHIP_CORE),XiangShan)
-	cellift-yosys -c $(YOSYS_SRC)/xiangshan_opt.tcl
+	celliftyosys -c $(YOSYS_SRC)/xiangshan_opt.tcl
 else
 $(error Unsupported core yet!)
 endif
 
 $(YOSYS_TOP_VERILOG_IFT): $(YOSYS_TOP_VERILOG_OPT) | $(ROCKET_INCLUDE)
 ifeq ($(STARSHIP_CORE),BOOM)
-	cellift-yosys -c $(YOSYS_SRC)/boom_ift.tcl
+	celliftyosys -c $(YOSYS_SRC)/boom_ift.tcl
 else ifeq ($(STARSHIP_CORE),XiangShan)
-	cellift-yosys -c $(YOSYS_SRC)/xiangshan_ift.tcl
+	celliftyosys -c $(YOSYS_SRC)/xiangshan_ift.tcl
 endif
 
 verilog-instrument: $(YOSYS_TOP_VERILOG_OPT)

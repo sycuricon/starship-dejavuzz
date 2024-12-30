@@ -2,9 +2,14 @@ module ArchStepBB(
     input clock,
     input reset,
     input valid,
+    input valid_taint_0,
     input [63:0] pc,
+    input [63:0] pc_taint_0,
     input [31:0] inst,
-    input [63:0] data
+    input [31:0] inst_taint_0,
+    input [63:0] data,
+    input [63:0] data_taint_0,
+    output [31:0] taint_sum
 );
   always @(posedge clock) begin
     if (!reset) begin

@@ -204,6 +204,14 @@ module taintcell_mux (A, B, S, A_taint, B_taint, S_taint, Y_taint);
 
 endmodule
 
+module ff_taint_guard (in, out);
+    parameter WIDTH = 0;
+    input [WIDTH-1:0] in;
+    output out;
+
+    assign out = $isunknown(in) ? 1'b0 : |in;
+endmodule
+
 module taintcell_dff (CLK, SRST, ARST, EN, D, Q, SRST_taint, ARST_taint, EN_taint, D_taint, Q_taint,
     LIVENESS_OP0, LIVENESS_OP1, LIVENESS_OP2, taint_sum);
 

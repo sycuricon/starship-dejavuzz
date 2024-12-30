@@ -4,7 +4,6 @@ yosys read_verilog -sv asic/yosys/blackbox.v
 yosys hierarchy -top $::env(YOSYS_TOP)
 
 yosys proc
-yosys memory_collect
 yosys opt -purge
 
 yosys tee -o build/rocket-chip/boom_ift.log     cellift -exclude-signals clk_i,rst_ni,clock,reset,reset_wire_reset -imprecise-shl-sshl -verbose

@@ -44,6 +44,8 @@ ifeq ($(STARSHIP_CORE),XiangShan)
   else
     export XS_REPO_DIR
   endif
+ifeq ($(STARSHIP_CORE), Ibex)
+	VCS_DEFINE := +define+RVFI
 endif
 
 #######################################

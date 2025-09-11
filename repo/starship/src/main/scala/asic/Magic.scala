@@ -11,11 +11,11 @@ import freechips.rocketchip.diplomacy._
 import freechips.rocketchip.regmapper._
 import freechips.rocketchip.tilelink._
 import freechips.rocketchip.subsystem._
+import freechips.rocketchip.tile._
 
  
 case class MagicParams(
-  baseAddress: BigInt = 0x2000,
-  width: Int = 64) {
+  baseAddress: BigInt = 0x2000) {
   def address = AddressSet(baseAddress, 0xFFF)
 }
 
@@ -53,21 +53,26 @@ class MagicDevice(params: MagicParams, beatBytes: Int)(implicit p: Parameters)
   lazy val module = new Imp
   class Imp extends LazyModuleImp(this) {
     Annotated.params(this, params)
+
+    val xlen = p(XLen) / 8
     
-    val field_name = List("random", "rdm_word", "rdm_float", "rdm_double", "rdm_text_addr", "rdm_data_addr", "mepc_next", "sepc_next", "rdm_pte")
-    val field_offset = field_name.zipWithIndex.map((_._2*8))
-    val field_header = "#ifndef _SYCURICON_MAGIC_DEVICE_H\n" + "#define _SYCURICON_MAGIC_DEVICE_H\n" +
+    val field_base = List("random", "rdm_word", "rdm_float", "rdm_double", "rdm_text_addr", "rdm_data_addr", "mepc_next", "sepc_next", "rdm_pte")
+    val field_suffix = if (xlen == 4) List("_0", "_1") else List("_0")
+    val field_name = field_base.flatMap(base => field_suffix.map(suffix => base + suffix))
+
+    val field_offset = field_name.zipWithIndex.map((_._2 * xlen))
+    val field_header = "#ifndef _ZJV_MAGIC_DEVICE_H\n" + "#define _ZJV_MAGIC_DEVICE_H\n" +
                        field_name.zip(field_offset).map(pair => "#define MAGIC_" + pair._1.toUpperCase + " 0x0" + pair._2.toHexString + "\n").mkString +
-                       "#define MAX_MAGIC_SPACE " + "0x0" + (field_name.size*8).toHexString + "\n" +
+                       "#define MAX_MAGIC_SPACE " + "0x0" + (field_name.size * xlen).toHexString + "\n" +
                        "#endif\n"
     Files.write(Paths.get("./build/rocket-chip/magic_device.h"), field_header.getBytes(StandardCharsets.UTF_8))
 
-    val field_wire = field_offset.map(_ => Wire(new DecoupledIO(UInt(params.width.W))))
+    val field_wire = field_offset.map(_ => Wire(new DecoupledIO(UInt(xlen.W))))
     node.regmap(field_offset.zip(field_wire).map{
-      case (offset, wire) => offset -> Seq(RegField.r(params.width, wire, RegFieldDesc(f"rdm_$offset", "", reset=Some(0), volatile=true)))
+      case (offset, wire) => offset -> Seq(RegField.r(xlen, wire, RegFieldDesc(f"rdm_$offset", "", reset=Some(0), volatile=true)))
     }:_*)
 
-    val impl = Module(new MagicDeviceBlackbox(params.width))
+    val impl = Module(new MagicDeviceBlackbox(xlen))
     impl.io.clock := clock
     impl.io.reset := reset.asBool
     impl.io.read_select := 0.U

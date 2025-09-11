@@ -49,6 +49,8 @@ module CJ #(parameter harts=1, commits=2) (
             `include "cosim/spike_difftest.boom.v"
           `elsif TARGET_CVA6
             `include "cosim/spike_difftest.cva6.v"
+          `elsif TARGET_Ibex
+            `include "cosim/spike_difftest.ibex.v"
           `else
             `include "cosim/spike_difftest.rocket.v"
           `endif

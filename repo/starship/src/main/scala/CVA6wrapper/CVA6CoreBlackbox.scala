@@ -140,6 +140,6 @@ class CVA6CoreBlackbox(
   require((cacheRegCnt <= cacheRegAvail) && (cacheRegBase.length <= cacheRegAvail) && (cacheRegSz.length <= cacheRegAvail), s"Currently only supports $cacheRegAvail cacheable regions")
 
   val root = System.getProperty("user.dir")
-  addPath(s"$root/src/main/resources/vsrc/CVA6Wrapper.sv")
-  addPath(s"$root/src/main/resources/vsrc/CVA6List.f")
+  addPath(s"$root/repo/starship/src/main/resources/vsrc/CVA6Wrapper.sv")
+  addPath(s"$root/repo/starship/src/main/resources/vsrc/CVA6List.f")
 }

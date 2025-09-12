@@ -4,7 +4,6 @@
 +incdir+${CVA6_REPO_DIR}/common/submodules/common_cells/src/
 +incdir+${CVA6_REPO_DIR}/common/local/util/
 
-
 ${CVA6_REPO_DIR}/core/include/cv64a6_imafdc_sv39_config_pkg.sv
 // Broken (?) dependencies in packages:
 //    - include/ariane_pkg.sv is dependent on src/riscv-dbg/src/dm_pkg.sv

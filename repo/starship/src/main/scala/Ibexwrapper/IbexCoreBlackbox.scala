@@ -103,5 +103,5 @@ class IbexCoreBlackbox(
     val ibexVsrcDir = s"$root/repo/starship/src/main/resources/vsrc"
 
     // generated from preprocessing step
-    addPath(s"$ibexVsrcDir/IbexCoreBlackbox.preprocessed.sv")
+    addPath(s"$ibexVsrcDir/IbexList.f")
 }

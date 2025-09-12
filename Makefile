@@ -37,6 +37,7 @@ ifeq ($(STARSHIP_CORE),CVA6)
     export CVA6_REPO_DIR
   endif
 endif
+export SRC
 
 ifeq ($(STARSHIP_CORE),XiangShan)
   ifeq ($(XS_REPO_DIR),)

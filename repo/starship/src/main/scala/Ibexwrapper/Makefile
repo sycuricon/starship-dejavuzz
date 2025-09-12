@@ -79,6 +79,7 @@ $(PREPROC_VERILOG): $(ALL_VSRCS)
 	$(PREPROC_SCRIPT) combined.sv $@ $(INC_DIRS)
 	sed -i '/.*prim_xilinx_clock_gating/,/;/c\    // Remove when upgrading verilator version' $@ # Remove FPGA module so Ibex works in Verilator v4.304
 	rm -rf combined.sv def.v undef.v
+	sed -i '/ifdef RVFI/i\`define RVFI' $(PREPROC_VERILOG)
 	cp $(PREPROC_VERILOG) $(vsrc_dir)/starship/src/main/resources/vsrc
 	rm $(PREPROC_VERILOG)
 clean:

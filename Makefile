@@ -57,7 +57,7 @@ endif
 ROCKET_TOP		:= $(STARSHIP_TH)
 ROCKET_CONF		:= starship.With$(STARSHIP_CORE)Core,$(STARSHIP_CONFIG),starship.With$(STARSHIP_FREQ)MHz
 ROCKET_SRC		:= $(SRC)/rocket-chip
-ROCKET_BUILD	:= $(BUILD)/rocket-chip
+ROCKET_BUILD	:= $(BUILD)/$(STARSHIP_CORE)
 ROCKET_SRCS     := $(shell find $(TOP) -name "*.scala")
 ROCKET_OUTPUT	:= $(STARSHIP_CORE).$(lastword $(subst ., ,$(STARSHIP_TOP))).$(lastword $(subst ., ,$(STARSHIP_CONFIG)))
 ROCKET_FIRRTL	:= $(ROCKET_BUILD)/$(ROCKET_OUTPUT).fir
@@ -470,6 +470,9 @@ plot_vcs_local_taint: $(VCS_WAVE)/$(SIMULATION_LABEL).vcd
 
 clean:
 	rm -rf $(BUILD)
+
+clean-design:
+	rm -rf $(BUILD)/$(STARSHIP_CORE)
 
 clean-all:
 	rm -rf $(BUILD) $(SBT_BUILD)

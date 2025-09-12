@@ -78,9 +78,11 @@ module IbexCoreBlackbox
     output [31:0] crash_dump_o_exception_addr,
 
     // CPU Control Signals
-    input  fetch_enable_i,
+    input  [4-1:0] fetch_enable_i,
     output alert_minor_o,
-    output alert_major_o,
+    // output alert_major_o,
+    output alert_major_internal_o,
+    output alert_major_bus_o,
     output core_sleep_o,
 
     // DFT bypass controls
@@ -141,7 +143,9 @@ module IbexCoreBlackbox
         .crash_dump_o ( ibex_crash_dump ),
         .fetch_enable_i,
         .alert_minor_o,
-        .alert_major_o,
+        //.alert_major_o,
+        .alert_major_internal_o,
+        .alert_major_bus_o,
         .core_sleep_o,
         .scan_rst_ni
     );

@@ -31,22 +31,27 @@ import freechips.rocketchip.prci._
 case class IbexCoreParams(
   //Defaults based on Ibex "small" configuration
   //See https://github.com/lowRISC/ibex for more information
-  val bootFreqHz: BigInt = BigInt(1700000000),
-  val pmpEnable: Int = 0,
-  val pmpGranularity: Int = 0,
-  val pmpNumRegions: Int = 4,
-  val mhpmCounterNum: Int = 0,
-  val mhpmCounterWidth: Int = 0,
-  val rv32e: Int = 0,
-  val rv32m: String = "RV32MFast",
-  val rv32b: String = "RV32BNone",
-  val regFile: String = "RegFileFF",
-  val branchTargetALU: Int = 0,
-  val wbStage: Int = 0,
-  val branchPredictor: Int = 0,
-  val dbgHwBreakNum: Int = 1,
-  val dmHaltAddr: Int = 0x1A110800,
-  val dmExceptionAddr: Int = 0x1A110808
+    val bootFreqHz: BigInt = BigInt(1700000000),
+    val pmpEnable: Int = 1,
+    val pmpGranularity: Int = 0,
+    val pmpNumRegions: Int = 16,
+    val mhpmCounterNum: Int = 10,
+    val mhpmCounterWidth: Int = 32,
+    val rv32e: Int = 0,
+    val rv32m: String = "RV32MSingleCycle",
+    val rv32b: String = "RV32BOTEarlGrey",
+    val regFile: String = "RegFileFF",
+    val branchTargetALU: Int = 1,
+    val wbStage: Int = 1,
+    val iCache: Int = 1,
+    val iCacheECC: Int = 1,
+    val iCacheScramble: Int = 1,
+    val branchPredictor: Int = 0,
+    val dbgTriggerEn: Int = 1,
+    val secureIbex: Int = 1,
+    val dbgHwBreakNum: Int = 1,
+    val dmHaltAddr: Int = 0x1A110800,
+    val dmExceptionAddr: Int = 0x1A110808,
 ) extends CoreParams {
   val xLen = 32
   val pgLevels = 2
@@ -208,7 +213,8 @@ class IbexTileModuleImp(outer: IbexTile) extends BaseTileModuleImp(outer){
   val rv32bInt: Option[Int] = outer.ibexParams.core.rv32b match {
     case "RV32BNone" => Some(0)
     case "RV32BBalanced" => Some(1)
-    case "RV32BFull" => Some(2)
+    case "RV32BOTEarlGrey" => Some(2)
+    case "RV32BFull" => Some(3)
     case _ => None
   }
   require(rv32bInt.isDefined, "Invalid RV32B argument")
@@ -233,7 +239,12 @@ class IbexTileModuleImp(outer: IbexTile) extends BaseTileModuleImp(outer){
     regfile = regFileInt.get,
     branchTargetALU = outer.ibexParams.core.branchTargetALU,
     wbStage = outer.ibexParams.core.wbStage,
+    iCache = outer.ibexParams.core.iCache,
+    iCacheECC = outer.ibexParams.core.iCacheECC,
+    iCacheScramble = outer.ibexParams.core.iCacheScramble,
     branchPredictor = outer.ibexParams.core.branchPredictor,
+    dbgTriggerEn = outer.ibexParams.core.dbgTriggerEn,
+    secureIbex = outer.ibexParams.core.secureIbex,
     dbgHwBreakNum = outer.ibexParams.core.dbgHwBreakNum,
     dmHaltAddr = outer.ibexParams.core.dmHaltAddr,
     dmExceptionAddr = outer.ibexParams.core.dmExceptionAddr
@@ -337,7 +348,7 @@ class IbexTileModuleImp(outer: IbexTile) extends BaseTileModuleImp(outer){
   core.io.ram_cfg_i_rf_cfg := 0.U
 
   //continuously fetch instructions
-  core.io.fetch_enable_i := 1.U
+  core.io.fetch_enable_i := 5.U
 
   //DFT not used
   core.io.scan_rst_ni := 1.U

@@ -45,7 +45,14 @@ ifeq ($(STARSHIP_CORE),XiangShan)
   else
     export XS_REPO_DIR
   endif
+endif
+
 ifeq ($(STARSHIP_CORE), Ibex)
+	ifeq ($(IBEX_REPO_DIR),)
+		$(error $$IBEX_REPO_DIR must point to Ibex repository)
+	else
+		export IBEX_REPO_DIR
+	endif
 	VCS_DEFINE := +define+RVFI
 endif
 
@@ -168,6 +175,8 @@ else ifeq ($(STARSHIP_CORE),CVA6)
 else ifeq ($(STARSHIP_CORE),Rocket)
 	sed -i "s/s2_pc <= 42'h10000/s2_pc <= 42'h80000000/g" $(ROCKET_TOP_VERILOG)
 	sed -i "s/s2_pc <= 40'h10000/s2_pc <= 40'h80000000/g" $(ROCKET_TOP_VERILOG)
+else ifeq ($(STARSHIP_CORE), Ibex)
+	sed -i 's/\<boot_addr_i\[31:8\]\s*,\s*8'\''h80\>/32'\''h80000000/g' $(IBEX_REPO_DIR)/rtl/ibex_if_stage.sv
 endif
 ifeq ($(SIMULATION_MODE),cosim)
 	sed -i "s/_covMap\[initvar\] = _RAND/_covMap\[initvar\] = 0; \/\//g" $(ROCKET_TOP_VERILOG)
@@ -286,7 +295,10 @@ SIM_SRC_V		+= $(SIM_DIR)/Testbench.ift.v		\
 				   $(SIM_DIR)/robprofile.v
 SIM_DEFINE		+= +define+HASVARIANT
 else
-SIM_SRC_V		+= $(SIM_DIR)/Testbench.v
+SIM_SRC_C		+= $(SIM_DIR)/spike_difftest.cc		\
+				   $(SPIKE_LIB)
+SIM_SRC_V		+= $(SIM_DIR)/Testbench.v			\
+				   $(SIM_DIR)/spike_difftest.v				   
 endif
 
 export LD_LIBRARY_PATH=$(SPIKE_BUILD)

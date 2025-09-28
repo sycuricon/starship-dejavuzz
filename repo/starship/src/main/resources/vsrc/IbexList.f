@@ -12,6 +12,9 @@ ${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_pkg.sv
 ${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_pkg.sv
 ${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_pkg.sv
 ${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_cipher_pkg.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count_pkg.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_util_pkg.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_mubi_pkg.sv
 
 //IBEX_VSRCS
 ${SRC}/ibex/rtl/ibex_alu.sv
@@ -49,7 +52,24 @@ ${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_28_22_enc.sv
 ${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_28_22_dec.sv
 ${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_ram_1p.sv
 ${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_buf.sv
+${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_flop.sv
+${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_clock_mux2.sv
 ${SRC}/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_ram_1p.sv
 ${SRC}/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_buf.sv
-
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_scr.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_count.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_inv_39_32_dec.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_ram_1p_adv.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_flop.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_onehot_check.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_onehot_enc.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_onehot_mux.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_subst_perm.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_prince.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_clock_mux2.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_inv_39_32_enc.sv
+${SRC}/ibex/dv/uvm/core_ibex/common/prim/prim_and2.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim_generic/rtl/prim_generic_and2.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_inv_28_22_enc.sv
+${SRC}/ibex/vendor/lowrisc_ip/ip/prim/rtl/prim_secded_inv_28_22_dec.sv
 ${SRC}/starship/src/main/resources/vsrc/IbexCoreBlackbox.sv

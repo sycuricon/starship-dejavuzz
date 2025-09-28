@@ -17,6 +17,10 @@
   `define DUT_CPU_TOP   `DUT_TILE_TOP.tile_reset_domain_xiangshan_tile.core.core
   `define DUT_PIPELINE  `DUT_CPU_TOP.backend
   `define DUT_INTERRUPT `DUT_PIPELINE.io_externalInterrupt_msip
+`elsif TARGET_Ibex
+  `define DUT_CPU_TOP   `DUT_TILE_TOP.tile_reset_domain_ibex_tile
+  `define DUT_PIPELINE  `DUT_CPU_TOP.core.i_ibex.u_ibex_core
+  `define DUT_INTERRUPT `DUT_PIPELINE.irq_external_i
 `else // TARGET_ROCKET
   `define DUT_CPU_TOP   `DUT_TILE_TOP.tile_reset_domain_tile
   `define DUT_PIPELINE  `DUT_CPU_TOP.core

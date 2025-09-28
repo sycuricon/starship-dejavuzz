@@ -29,6 +29,7 @@ STARSHIP_TESTCASE	?=
 
 XS_REPO_DIR		?=
 CVA6_REPO_DIR	?=
+IBEX_REPO_DIR	?=
 
 $(BUILD)/starship-dummy-testcase:
 	mkdir -p $(BUILD)

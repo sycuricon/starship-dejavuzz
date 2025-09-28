@@ -1,13 +1,13 @@
 // commit & judge stage
 
-    if (`PIPELINE.rvfi_valid) begin
-        if (cosim_commit(0, $signed(`PIPELINE.rvfi_pc_rdata), `PIPELINE.rvfi_trap) != 0) begin
+    if (`DUT_PIPELINE.rvfi_valid) begin
+        if (cosim_commit(0, $signed(`DUT_PIPELINE.rvfi_pc_rdata), `DUT_PIPELINE.rvfi_trap) != 0) begin
             $display("[CJ] %d Commit Failed", 0);
             #10 $fatal;
         end
 
-        if (`PIPELINE.rf_we_wb_o) begin
-            if (cosim_judge(0, "int", `PIPELINE.rvfi_rd_addr, `PIPELINE.rvfi_rd_wdata) != 0) begin
+        if (`DUT_PIPELINE.rf_we_wb_o) begin
+            if (cosim_judge(0, "int", `DUT_PIPELINE.rvfi_rd_addr, `DUT_PIPELINE.rvfi_rd_wdata) != 0) begin
                 $display("[CJ] %d integer register Judge Failed", 0);
                 #10 $fatal;
             end

@@ -19,7 +19,12 @@ module IbexCoreBlackbox
         parameter REGFILE = 0,
         parameter BRANCH_TARGET_ALU = 0,
         parameter WB_STAGE = 0,
+        parameter ICache = 0,
+        parameter ICacheECC = 0,
+        parameter ICacheScramble = 0,
         parameter BRANCH_PREDICTOR = 0,
+        parameter DbgTriggerEn = 0,
+        parameter SecureIbex = 0,
         parameter PMP_ENABLE = 0,
         parameter PMP_GRANULARITY = 0,
         parameter PMP_NUM_REGIONS = 0,
@@ -91,7 +96,19 @@ module IbexCoreBlackbox
 
     prim_ram_1p_pkg::ram_1p_cfg_t ibex_ram_config;
     ibex_pkg::crash_dump_t ibex_crash_dump;
+    logic [38:0] instr_rdata_ecc_o;
+    logic [38:0] data_rdata_ecc_o;
 
+    prim_secded_inv_39_32_enc inst_ecc_enc (
+        .data_i(instr_rdata_i),
+        .data_o(instr_rdata_ecc_o)
+    );
+
+    prim_secded_inv_39_32_enc data_rdata_ecc_enc (
+        .data_i(data_rdata_i),
+        .data_o(data_rdata_ecc_o)
+    );
+    
     ibex_top #(
         .PMPEnable(PMP_ENABLE),
         .PMPGranularity(PMP_GRANULARITY),
@@ -104,12 +121,13 @@ module IbexCoreBlackbox
         .RegFile(ibex_pkg::regfile_e'(REGFILE)),
         .BranchTargetALU(BRANCH_TARGET_ALU),
         .WritebackStage(WB_STAGE),
-        .ICache(1'b0),
-        .ICacheECC(1'b0),
+        .ICache(ICache),
+        .ICacheECC(ICacheECC),
+        .ICacheScramble(ICacheScramble),
         .BranchPredictor(BRANCH_PREDICTOR),
-        .DbgTriggerEn(1'b0),
+        .DbgTriggerEn(DbgTriggerEn),
         .DbgHwBreakNum(DBG_HW_BREAK_NUM),
-        .SecureIbex(1'b0),
+        .SecureIbex(SecureIbex),
         .DmHaltAddr(DM_HALT_ADDR),
         .DmExceptionAddr(DM_EXCEPTION_ADDR)
     ) i_ibex (
@@ -124,6 +142,7 @@ module IbexCoreBlackbox
         .instr_rvalid_i,
         .instr_addr_o,
         .instr_rdata_i,
+        .instr_rdata_intg_i(instr_rdata_ecc_o[38:32]),                  //SecureIbex Config
         .instr_err_i,
         .data_req_o,
         .data_gnt_i,
@@ -133,12 +152,14 @@ module IbexCoreBlackbox
         .data_addr_o,
         .data_wdata_o,
         .data_rdata_i,
+        .data_rdata_intg_i(data_rdata_ecc_o[38:32]),                   //SecureIbex Config
         .data_err_i,
         .irq_software_i,
         .irq_timer_i,
         .irq_external_i,
         .irq_fast_i,
         .irq_nm_i,
+        .scramble_key_valid_i(0),
         .debug_req_i,
         .crash_dump_o ( ibex_crash_dump ),
         .fetch_enable_i,

@@ -17,22 +17,11 @@
       input reg verbose
   );
   import "DPI-C" function void cosim_set_tohost(input longint unsigned value);
+`endif
+
 `define MEM_TOP  Testbench.testHarness.mem.srams.mem
 `define MEM_RPL  `MEM_TOP.mem_ext
 
-`ifdef TARGET_BOOM
-  `define CPU_TOP  `TILE_TOP.tile_reset_domain_boom_tile
-  `define PIPELINE `CPU_TOP.core
-`elsif TARGET_CVA6
-  `define CPU_TOP  `TILE_TOP.tile_reset_domain_cva6_tile
-  `define PIPELINE `CPU_TOP.core.i_ariane.i_cva6
-`elsif TARGET_Ibex
-  `define CPU_TOP  `TILE_TOP.tile_reset_domain_ibex_tile
-  `define PIPELINE `CPU_TOP.core.i_ibex.u_ibex_core
-`else
-  `define CPU_TOP  `TILE_TOP.tile_reset_domain_tile
-  `define PIPELINE `CPU_TOP.core
-`endif
 
 
 module Testbench;
@@ -92,7 +81,8 @@ module Testbench;
     dump_wave = $test$plusargs("dump");
 
     // fixed for diffuzzRTL, CJ should not timeout
-    max_cycles = 2000000000;
+    //max_cycles = 2000000000;
+    max_cycles = 10000;
 
     // $urandom is seeded via cmdline (+ntb_random_seed in VCS) but that doesn't seed $random.
     rand_value = $urandom;
